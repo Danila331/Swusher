@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог - ShareHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">ShareHub</a>
+            </div>
+            <div class="nav-links">
+                <a href="catalog.html" class="active">Каталог</a>
+                <a href="how-it-works.html">Как это работает</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="auth.html" class="btn btn-outline">Войти</a>
+                <a href="auth.html" class="btn btn-primary">Регистрация</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Catalog Section -->
+    <section class="catalog">
+        <div class="catalog-container">
+            <div class="catalog-header">
+                <h1 class="catalog-title">Каталог вещей</h1>
+                <div class="search-box">
+                    <input type="text" placeholder="Что вы ищете?">
+                    <input type="text" placeholder="Где?">
+                    <button class="btn btn-primary">Найти</button>
+                </div>
+            </div>
+            <div class="catalog-main">
+                <div class="catalog-sidebar">
+                    <div class="filters">
+                        <h3>Фильтры</h3>
+                        <div class="filter-group">
+                            <label for="category">Категория:</label>
+                            <select id="category" class="filter-select">
+                                <option value="">Все категории</option>
+                                <option value="clothing">Одежда</option>
+                                <option value="electronics">Техника</option>
+                                <option value="furniture">Мебель</option>
+                                <option value="tools">Инструменты</option>
+                                <option value="sports">Спорт</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="price">Цена:</label>
+                            <select id="price" class="filter-select">
+                                <option value="">Любая</option>
+                                <option value="asc">По возрастанию</option>
+                                <option value="desc">По убыванию</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="location">Локация:</label>
+                            <input type="text" id="location" class="filter-input" placeholder="Город или район">
+                        </div>
+                        <div class="filter-group">
+                            <label for="date">Дата:</label>
+                            <input type="date" id="date" class="filter-input">
+                        </div>
+                        <div class="filter-group">
+                            <label for="rating">Рейтинг:</label>
+                            <select id="rating" class="filter-select">
+                                <option value="">Любой</option>
+                                <option value="4">4+ звезды</option>
+                                <option value="3">3+ звезды</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="catalog-content">
+                    <div class="catalog-grid">
+                        <!-- Item 1 -->
+                    <div class="catalog-item">
+                        <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+                        <div class="catalog-item-info">
+                            <h3 class="catalog-item-title">Камера Sony A7III</h3>
+                            <div class="catalog-item-meta">
+                                <span class="catalog-item-price">1500 ₽/день</span>
+                                <span class="catalog-item-location">Москва</span>
+                            </div>
+                            <div class="catalog-item-details">
+                                <div class="catalog-item-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </div>
+                                <div class="catalog-item-deposit">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Залог: 30000 ₽</span>
+                                </div>
+                            </div>
+                            <a href="item.html?id=1" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="catalog-item">
+                        <img src="images/items/bike.jpg" alt="Велосипед Trek">
+                        <div class="catalog-item-info">
+                            <h3 class="catalog-item-title">Велосипед Trek</h3>
+                            <div class="catalog-item-meta">
+                                <span class="catalog-item-price">800 ₽/день</span>
+                                <span class="catalog-item-location">Москва</span>
+                            </div>
+                            <div class="catalog-item-details">
+                                <div class="catalog-item-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9</span>
+                                </div>
+                                <div class="catalog-item-deposit">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Залог: 15000 ₽</span>
+                                </div>
+                            </div>
+                            <a href="item.html?id=2" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="catalog-item">
+                        <img src="images/items/drill.jpg" alt="Дрель Bosch">
+                        <div class="catalog-item-info">
+                            <h3 class="catalog-item-title">Дрель Bosch</h3>
+                            <div class="catalog-item-meta">
+                                <span class="catalog-item-price">500 ₽/день</span>
+                                <span class="catalog-item-location">Москва</span>
+                            </div>
+                            <div class="catalog-item-details">
+                                <div class="catalog-item-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.7</span>
+                                </div>
+                                <div class="catalog-item-deposit">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Залог: 5000 ₽</span>
+                                </div>
+                            </div>
+                            <a href="item.html?id=3" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <span>...</span>
+                    <button class="pagination-btn">10</button>
+                    <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ShareHub</h3>
+                <p>Платформа для аренды вещей между людьми</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Email: support@sharehub.com</p>
+                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+            </div>
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ShareHub. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/catalog.js"></script>
+</body>
+</html> 

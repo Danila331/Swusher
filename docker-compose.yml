@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: sharehub-backend
+    ports:
+      - "8080:8080"
+    command: ["go", "run", "cmd/app/main.go"]
+
+  frontend:
+    image: nginx:latest
+    container_name: sharehub-frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./front-end:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro

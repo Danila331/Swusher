@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы - ShareHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">ShareHub</a>
+            </div>
+            <div class="nav-links">
+                <a href="catalog.html">Каталог</a>
+                <a href="how-it-works.html">Как это работает</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="profile-owner.html" class="btn btn-primary">Личный кабинет</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="profile-section">
+        <div class="profile-grid">
+            <!-- Sidebar -->
+            <aside class="profile-sidebar">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="images/avatars/owner.jpg" alt="Аватар пользователя">
+                        <button class="avatar-edit">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <h2>Иван Петров</h2>
+                    <p class="user-email">ivan@example.com</p>
+                    <div class="user-rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.8</span>
+                        <span class="reviews-count">(24 отзыва)</span>
+                    </div>
+                    <div class="user-verification">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Верифицирован</span>
+                    </div>
+                </div>
+                <nav class="profile-nav">
+                    <a href="active-rentals.html">
+                        <i class="fas fa-clock"></i>
+                        <span>Активные аренды</span>
+                    </a>
+                    <a href="my-items.html">
+                        <i class="fas fa-box"></i>
+                        <span>Мои вещи</span>
+                    </a>
+                    <a href="rental-history.html">
+                        <i class="fas fa-history"></i>
+                        <span>История аренд</span>
+                    </a>
+                    <a href="reviews.html" class="active">
+                        <i class="fas fa-star"></i>
+                        <span>Отзывы</span>
+                    </a>
+                    <a href="earnings.html">
+                        <i class="fas fa-wallet"></i>
+                        <span>Заработок</span>
+                    </a>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Настройки</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Content -->
+            <div class="profile-content">
+                <div class="section-header">
+                    <h1>Отзывы</h1>
+                    <div class="filter-options">
+                        <select class="form-select">
+                            <option value="all">Все вещи</option>
+                            <option value="camera">Камера Sony A7III</option>
+                            <option value="bike">Велосипед Trek</option>
+                            <option value="drill">Дрель Bosch</option>
+                        </select>
+                        <select class="form-select">
+                            <option value="all">Все оценки</option>
+                            <option value="5">5 звезд</option>
+                            <option value="4">4 звезды</option>
+                            <option value="3">3 звезды</option>
+                            <option value="2">2 звезды</option>
+                            <option value="1">1 звезда</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="reviews-list">
+                    <!-- Review 1 -->
+                    <div class="review-card">
+                        <div class="reviewer-info">
+                            <div class="reviewer-avatar">
+                                <img src="images/avatars/user1.jpg" alt="Аватар арендатора">
+                            </div>
+                            <div class="reviewer-details">
+                                <h4>Алексей Иванов</h4>
+                                <div class="renter-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-item">
+                            <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+                            <h3>Камера Sony A7III</h3>
+                        </div>
+                        <div class="review-content">
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <span>5.0</span>
+                            </div>
+                            <p class="review-text">Отличная камера, всё работает идеально. Владелец очень ответственный и приятный в общении. Рекомендую!</p>
+                            <span class="review-date">12 марта 2024</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="review-card">
+                        <div class="reviewer-info">
+                            <div class="reviewer-avatar">
+                                <img src="images/avatars/user2.jpg" alt="Аватар арендатора">
+                            </div>
+                            <div class="reviewer-details">
+                                <h4>Мария Сидорова</h4>
+                                <div class="renter-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.7</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-item">
+                            <img src="images/items/bike.jpg" alt="Велосипед Trek">
+                            <h3>Велосипед Trek</h3>
+                        </div>
+                        <div class="review-content">
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.0</span>
+                            </div>
+                            <p class="review-text">Велосипед в хорошем состоянии, но были небольшие проблемы с переключением передач. В целом довольна арендой.</p>
+                            <span class="review-date">05 марта 2024</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="review-card">
+                        <div class="reviewer-info">
+                            <div class="reviewer-avatar">
+                                <img src="images/avatars/user3.jpg" alt="Аватар арендатора">
+                            </div>
+                            <div class="reviewer-details">
+                                <h4>Петр Смирнов</h4>
+                                <div class="renter-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-item">
+                            <img src="images/items/drill.jpg" alt="Дрель Bosch">
+                            <h3>Дрель Bosch</h3>
+                        </div>
+                        <div class="review-content">
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <span>5.0</span>
+                            </div>
+                            <p class="review-text">Отличная дрель, помогла быстро справиться с ремонтом. Владелец был очень вежлив и пунктуален.</p>
+                            <span class="review-date">01 марта 2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-primary">1</button>
+                    <button class="btn btn-outline">2</button>
+                    <button class="btn btn-outline">3</button>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ShareHub</h3>
+                <p>Платформа для аренды вещей между людьми</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Email: support@sharehub.com</p>
+                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+            </div>
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ShareHub. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/profile.js"></script>
+</body>
+</html> 

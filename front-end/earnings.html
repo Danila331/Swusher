@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заработок - ShareHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">ShareHub</a>
+            </div>
+            <div class="nav-links">
+                <a href="catalog.html">Каталог</a>
+                <a href="how-it-works.html">Как это работает</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="profile-owner.html" class="btn btn-primary">Личный кабинет</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="profile-section">
+        <div class="profile-grid">
+            <!-- Sidebar -->
+            <aside class="profile-sidebar">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="images/avatars/owner.jpg" alt="Аватар пользователя">
+                        <button class="avatar-edit">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <h2>Иван Петров</h2>
+                    <p class="user-email">ivan@example.com</p>
+                    <div class="user-rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.8</span>
+                        <span class="reviews-count">(24 отзыва)</span>
+                    </div>
+                    <div class="user-verification">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Верифицирован</span>
+                    </div>
+                </div>
+                <nav class="profile-nav">
+                    <a href="active-rentals.html">
+                        <i class="fas fa-clock"></i>
+                        <span>Активные аренды</span>
+                    </a>
+                    <a href="my-items.html">
+                        <i class="fas fa-box"></i>
+                        <span>Мои вещи</span>
+                    </a>
+                    <a href="rental-history.html">
+                        <i class="fas fa-history"></i>
+                        <span>История аренд</span>
+                    </a>
+                    <a href="reviews.html">
+                        <i class="fas fa-star"></i>
+                        <span>Отзывы</span>
+                    </a>
+                    <a href="earnings.html" class="active">
+                        <i class="fas fa-wallet"></i>
+                        <span>Заработок</span>
+                    </a>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Настройки</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Content -->
+            <div class="profile-content">
+                <div class="section-header">
+                    <h1>Заработок</h1>
+                    <div class="period-selector">
+                        <select class="form-select">
+                            <option value="week">За неделю</option>
+                            <option value="month" selected>За месяц</option>
+                            <option value="year">За год</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="earnings-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-ruble-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Общий заработок</h3>
+                            <p class="stat-value">25,000 ₽</p>
+                            <p class="stat-change positive">+15% к прошлому месяцу</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Арендовано вещей</h3>
+                            <p class="stat-value">12</p>
+                            <p class="stat-change positive">+3 к прошлому месяцу</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Средний рейтинг</h3>
+                            <p class="stat-value">4.8</p>
+                            <p class="stat-change neutral">Без изменений</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="transactions-section">
+                    <h2>История транзакций</h2>
+                    <div class="transactions-list">
+                        <!-- Transaction 1 -->
+                        <div class="transaction-card">
+                            <div class="transaction-info">
+                                <div class="transaction-item">
+                                    <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+                                    <h4>Камера Sony A7III</h4>
+                                </div>
+                                <div class="transaction-details">
+                                    <span class="transaction-date">15 марта 2024</span>
+                                    <span class="transaction-renter">Алексей Иванов</span>
+                                </div>
+                            </div>
+                            <div class="transaction-amount positive">
+                                +5,000 ₽
+                            </div>
+                        </div>
+
+                        <!-- Transaction 2 -->
+                        <div class="transaction-card">
+                            <div class="transaction-info">
+                                <div class="transaction-item">
+                                    <img src="images/items/bike.jpg" alt="Велосипед Trek">
+                                    <h4>Велосипед Trek</h4>
+                                </div>
+                                <div class="transaction-details">
+                                    <span class="transaction-date">10 марта 2024</span>
+                                    <span class="transaction-renter">Мария Сидорова</span>
+                                </div>
+                            </div>
+                            <div class="transaction-amount positive">
+                                +3,500 ₽
+                            </div>
+                        </div>
+
+                        <!-- Transaction 3 -->
+                        <div class="transaction-card">
+                            <div class="transaction-info">
+                                <div class="transaction-item">
+                                    <img src="images/items/drill.jpg" alt="Дрель Bosch">
+                                    <h4>Дрель Bosch</h4>
+                                </div>
+                                <div class="transaction-details">
+                                    <span class="transaction-date">05 марта 2024</span>
+                                    <span class="transaction-renter">Петр Смирнов</span>
+                                </div>
+                            </div>
+                            <div class="transaction-amount positive">
+                                +1,200 ₽
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="btn btn-outline">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-primary">1</button>
+                        <button class="btn btn-outline">2</button>
+                        <button class="btn btn-outline">3</button>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ShareHub</h3>
+                <p>Платформа для аренды вещей между людьми</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Email: support@sharehub.com</p>
+                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+            </div>
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ShareHub. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/profile.js"></script>
+</body>
+</html> 

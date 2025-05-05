@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет владельца - ShareHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">ShareHub</a>
+            </div>
+            <div class="nav-links">
+                <a href="catalog.html">Каталог</a>
+                <a href="how-it-works.html">Как это работает</a>
+                <a href="about.html">О нас</a>
+                <a href="contacts.html">Контакты</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="profile-owner.html" class="btn btn-primary">Личный кабинет</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-grid">
+                <!-- Profile Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <img src="images/users/owner-avatar.jpg" alt="Аватар владельца">
+                            <button class="avatar-edit"><i class="fas fa-camera"></i></button>
+                        </div>
+                        <h2>Александр П.</h2>
+                        <p class="user-email">alex@example.com</p>
+                        <div class="user-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                            <span class="reviews-count">(48 отзывов)</span>
+                        </div>
+                        <div class="user-verification">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Подтвержденный пользователь</span>
+                        </div>
+                    </div>
+                    <nav class="profile-nav">
+                        <a href="active-rentals.html" class="active"><i class="fas fa-clock"></i> Активные аренды</a>
+                        <a href="my-items.html"><i class="fas fa-box"></i> Мои вещи</a>
+                        <a href="rental-history.html"><i class="fas fa-history"></i> История аренд</a>
+                        <a href="reviews.html"><i class="fas fa-star"></i> Отзывы</a>
+                        <a href="earnings.html"><i class="fas fa-wallet"></i> Заработок</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> Настройки</a>
+                    </nav>
+                </div>
+
+                <!-- Profile Content -->
+                <div class="profile-content">
+                    <!-- Active Rentals -->
+                    <div id="active-rentals" class="profile-section-content">
+                        <h2>Активные аренды</h2>
+                        <div class="rentals-grid">
+                            <div class="rental-card">
+                                <div class="rental-image">
+                                    <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+                                </div>
+                                <div class="rental-info">
+                                    <h3>Камера Sony A7III</h3>
+                                    <div class="renter-info">
+                                        <img src="images/users/user-avatar.jpg" alt="Арендатор" class="renter-avatar">
+                                        <div class="renter-details">
+                                            <h4>Иван Иванов</h4>
+                                            <div class="renter-rating">
+                                                <i class="fas fa-star"></i>
+                                                <span>4.8</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rental-dates">
+                                        <span class="date-label">Срок аренды:</span>
+                                        <span class="date-range">15.03.2024 - 20.03.2024</span>
+                                    </div>
+                                    <div class="rental-status">
+                                        <span class="status active">Активна</span>
+                                    </div>
+                                    <div class="rental-actions">
+                                        <button class="btn btn-outline">Продлить</button>
+                                        <button class="btn btn-primary">Связаться с арендатором</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Items -->
+                    <div id="my-items" class="profile-section-content hidden">
+                        <div class="section-header">
+                            <h2>Мои вещи</h2>
+                            <button class="btn btn-primary"><i class="fas fa-plus"></i> Добавить вещь</button>
+                        </div>
+                        <div class="items-grid">
+                            <div class="item-card">
+                                <div class="item-image">
+                                    <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+                                </div>
+                                <div class="item-info">
+                                    <h3>Камера Sony A7III</h3>
+                                    <div class="item-meta">
+                                        <span class="price">1500 ₽/день</span>
+                                        <span class="location">Москва</span>
+                                    </div>
+                                    <div class="item-details">
+                                        <div class="item-rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>4.8</span>
+                                            <span class="reviews">(24 отзыва)</span>
+                                        </div>
+                                        <div class="item-deposit">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <span>Залог: 30000 ₽</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-actions">
+                                        <button class="btn btn-outline"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-outline"><i class="fas fa-pause"></i></button>
+                                        <button class="btn btn-outline"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rental History -->
+                    <div id="rental-history" class="profile-section-content hidden">
+                        <h2>История аренд</h2>
+                        <div class="history-grid">
+                            <div class="history-card">
+                                <div class="history-image">
+                                    <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+                                </div>
+                                <div class="history-info">
+                                    <h3>Камера Sony A7III</h3>
+                                    <div class="renter-info">
+                                        <img src="images/users/user-avatar.jpg" alt="Арендатор" class="renter-avatar">
+                                        <h4>Мария К.</h4>
+                                    </div>
+                                    <div class="history-dates">
+                                        <span class="date-label">Даты аренды:</span>
+                                        <span class="date-range">01.03.2024 - 05.03.2024</span>
+                                    </div>
+                                    <div class="history-status">
+                                        <span class="status completed">Завершена</span>
+                                    </div>
+                                    <div class="history-rating">
+                                        <i class="fas fa-star"></i>
+                                        <span>5.0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews -->
+                    <div id="reviews" class="profile-section-content hidden">
+                        <h2>Отзывы</h2>
+                        <div class="reviews-list">
+                            <div class="review-card">
+                                <div class="reviewer-info">
+                                    <img src="images/users/user-avatar.jpg" alt="Пользователь" class="reviewer-avatar">
+                                    <div class="reviewer-details">
+                                        <h4>Мария К.</h4>
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>5.0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-item">
+                                    <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+                                    <h3>Камера Sony A7III</h3>
+                                </div>
+                                <p class="review-text">Отличная камера, всё работает идеально. Владелец очень ответственный и приятный в общении. Рекомендую!</p>
+                                <span class="review-date">12 марта 2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Earnings -->
+                    <div id="earnings" class="profile-section-content hidden">
+                        <h2>Заработок</h2>
+                        <div class="earnings-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Общий заработок</h3>
+                                    <p class="stat-value">45,000 ₽</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Аренд в этом месяце</h3>
+                                    <p class="stat-value">12</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3>Средний рейтинг</h3>
+                                    <p class="stat-value">4.9</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="earnings-chart">
+                            <h3>График заработка</h3>
+                            <!-- Здесь будет график -->
+                            <div class="chart-placeholder">
+                                График будет отображаться здесь
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings -->
+                    <div id="settings" class="profile-section-content hidden">
+                        <h2>Настройки</h2>
+                        <form class="settings-form">
+                            <div class="form-group">
+                                <label for="name">Имя</label>
+                                <input type="text" id="name" value="Александр П.">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="alex@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Телефон</label>
+                                <input type="tel" id="phone" value="+7 (XXX) XXX-XX-XX">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Адрес</label>
+                                <input type="text" id="address" value="г. Москва, ул. Примерная, д. 123">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Новый пароль</label>
+                                <input type="password" id="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="password-confirm">Подтверждение пароля</label>
+                                <input type="password" id="password-confirm">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ShareHub</h3>
+                <p>Платформа для аренды вещей между людьми</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Email: support@sharehub.com</p>
+                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+            </div>
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ShareHub. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/profile.js"></script>
+</body>
+</html> 
