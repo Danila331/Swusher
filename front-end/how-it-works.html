@@ -6,6 +6,7 @@
     <title>Как это работает - ShareHub</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/faq.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -26,9 +27,25 @@
                 <a href="auth.html" class="btn btn-primary">Регистрация</a>
             </div>
             <div class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
             </div>
         </nav>
+        <div class="mobile-nav" id="mobileNav">
+            <div class="mobile-nav-content">
+                <div class="mobile-nav-links">
+                    <a href="catalog.html">Каталог</a>
+                    <a href="how-it-works.html">Как это работает</a>
+                    <a href="about.html">О нас</a>
+                    <a href="contacts.html">Контакты</a>
+                </div>
+                <div class="mobile-auth-buttons">
+                    <a href="auth.html" class="btn btn-outline mobile-btn">Войти</a>
+                    <a href="auth.html" class="btn btn-primary mobile-btn">Регистрация</a>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- Hero Section -->
@@ -42,7 +59,10 @@
     <!-- Steps Section -->
     <section class="steps-section">
         <div class="container">
-            <div class="steps-grid">
+            <div class="section-title">
+                <h2>Процесс аренды</h2>
+            </div>
+            <div class="steps-grid reveal">
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <div class="step-icon">
@@ -82,8 +102,10 @@
     <!-- Features Section -->
     <section class="features-section">
         <div class="container">
-            <h2>Преимущества ShareHub</h2>
-            <div class="features-grid">
+            <div class="section-title">
+                <h2>Преимущества ShareHub</h2>
+            </div>
+            <div class="features-grid reveal">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
@@ -119,23 +141,63 @@
     <!-- FAQ Section -->
     <section class="faq-section">
         <div class="container">
-            <h2>Часто задаваемые вопросы</h2>
-            <div class="faq-grid">
+            <div class="section-title">
+                <h2>Часто задаваемые вопросы</h2>
+            </div>
+            <div class="faq-grid reveal">
                 <div class="faq-item">
-                    <h3>Как происходит оплата?</h3>
-                    <p>Оплата происходит через безопасную платежную систему. Вы можете использовать банковскую карту или электронный кошелек.</p>
+                    <div class="faq-question">
+                        <h3>Как происходит оплата?</h3>
+                        <span class="faq-toggle" aria-label="Развернуть ответ"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Оплата происходит через безопасную платежную систему. Вы можете использовать банковскую карту или электронный кошелек. Сумма залога и аренды блокируется на вашей карте и списывается только после подтверждения сделки.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <h3>Что делать, если вещь сломалась?</h3>
-                    <p>В случае поломки необходимо немедленно связаться с владельцем и службой поддержки ShareHub для решения вопроса.</p>
+                    <div class="faq-question">
+                        <h3>Что делать, если вещь сломалась?</h3>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>В случае поломки необходимо немедленно связаться с владельцем и службой поддержки ShareHub для решения вопроса. Мы поможем урегулировать ситуацию и при необходимости компенсируем ущерб.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <h3>Как вернуть залог?</h3>
-                    <p>Залог возвращается автоматически после подтверждения владельцем, что вещь возвращена в надлежащем состоянии.</p>
+                    <div class="faq-question">
+                        <h3>Как вернуть залог?</h3>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Залог возвращается автоматически после подтверждения владельцем, что вещь возвращена в надлежащем состоянии. Обычно это занимает 1-3 рабочих дня, в зависимости от вашего банка.</p>
+                    </div>
                 </div>
                 <div class="faq-item">
-                    <h3>Можно ли продлить аренду?</h3>
-                    <p>Да, вы можете продлить аренду, если вещь не забронирована другими пользователями на нужные вам даты.</p>
+                    <div class="faq-question">
+                        <h3>Можно ли продлить аренду?</h3>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, вы можете продлить аренду, если вещь не забронирована другими пользователями на нужные вам даты. Для этого просто свяжитесь с владельцем через платформу и обсудите условия продления.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как обеспечивается безопасность сделок?</h3>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Мы используем систему верификации пользователей, безопасные платежи через защищенный шлюз, систему залогов и страхование. Все сделки документируются, а пользователи могут оставлять отзывы друг о друге.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Какие документы нужны для регистрации?</h3>
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Для регистрации достаточно паспорта и номера телефона. Для верификации аккаунта может потребоваться дополнительная информация, такая как фото с паспортом или подтверждение адреса проживания.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -151,31 +213,58 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>ShareHub</h3>
-                <p>Платформа для аренды вещей между людьми</p>
-            </div>
-            <div class="footer-section">
-                <h3>Контакты</h3>
-                <p>Email: support@sharehub.com</p>
-                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
-            </div>
-            <div class="footer-section">
-                <h3>Социальные сети</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-vk"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
+    <footer class="footer stylish-footer">
+        <div class="footer-inner">
+            <a href="index.html" class="footer-logo">ShareHub</a>
+            <div class="footer-socials">
+                <a href="#" class="footer-social vk" aria-label="VK"><i class="fab fa-vk"></i></a>
+                <a href="#" class="footer-social tg" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="footer-social ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="footer-bottom stylish-footer-bottom">
             <p>&copy; 2024 ShareHub. Все права защищены.</p>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/faq.js"></script>
+    <!-- <script>
+        // Анимация появления элементов при скролле
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Обработка FAQ аккордеона
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const answer = question.nextElementSibling;
+                const toggle = question.querySelector('.faq-toggle i');
+                
+                faqItem.classList.toggle('active');
+                
+                if (faqItem.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    toggle.style.transform = 'rotate(180deg)';
+                } else {
+                    answer.style.maxHeight = '0';
+                    toggle.style.transform = 'rotate(0)';
+                }
+            });
+        });
+
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', reveal);
+    </script> -->
 </body>
 </html> 

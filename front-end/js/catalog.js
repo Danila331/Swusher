@@ -1,42 +1,4 @@
-// Auth state management
-const authState = {
-    isAuthenticated: false,
-    currentUser: null
-};
 
-// Check authentication on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || 
-                       JSON.parse(sessionStorage.getItem('currentUser'));
-    
-    if (currentUser) {
-        authState.isAuthenticated = true;
-        authState.currentUser = currentUser;
-        updateAuthUI();
-    } else {
-        window.location.href = 'auth.html';
-    }
-});
-
-// Update UI based on auth state
-function updateAuthUI() {
-    const authButtons = document.querySelector('.auth-buttons');
-    if (authState.isAuthenticated) {
-        authButtons.innerHTML = `
-            <div class="user-menu">
-                <img src="images/users/${authState.currentUser.id}.jpg" alt="User Avatar" class="user-avatar">
-                <span class="user-name">${authState.currentUser.name}</span>
-                <button class="btn btn-outline" id="logout">Выйти</button>
-            </div>
-        `;
-        
-        document.getElementById('logout').addEventListener('click', () => {
-            localStorage.removeItem('currentUser');
-            sessionStorage.removeItem('currentUser');
-            window.location.href = 'auth.html';
-        });
-    }
-}
 
 // Sample items data
 const items = [
