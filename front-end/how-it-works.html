@@ -229,42 +229,5 @@
 
     <script src="js/main.js"></script>
     <script src="js/faq.js"></script>
-    <!-- <script>
-        // Анимация появления элементов при скролле
-        function reveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(element => {
-                const windowHeight = window.innerHeight;
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add('active');
-                }
-            });
-        }
-
-        // Обработка FAQ аккордеона
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                const answer = question.nextElementSibling;
-                const toggle = question.querySelector('.faq-toggle i');
-                
-                faqItem.classList.toggle('active');
-                
-                if (faqItem.classList.contains('active')) {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    toggle.style.transform = 'rotate(180deg)';
-                } else {
-                    answer.style.maxHeight = '0';
-                    toggle.style.transform = 'rotate(0)';
-                }
-            });
-        });
-
-        window.addEventListener('scroll', reveal);
-        window.addEventListener('load', reveal);
-    </script> -->
 </body>
 </html> 
