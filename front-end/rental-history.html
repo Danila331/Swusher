@@ -22,226 +22,202 @@
                 <a href="contacts.html">Контакты</a>
             </div>
             <div class="auth-buttons">
-                <a href="profile-owner.html" class="btn btn-primary">Личный кабинет</a>
+                <a href="auth.html" class="btn btn-outline">Войти</a>
+                <a href="auth.html" class="btn btn-primary">Регистрация</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
             </div>
         </nav>
+        <div class="mobile-nav" id="mobileNav">
+            <div class="mobile-nav-content">
+                <div class="mobile-nav-links">
+                    <a href="catalog.html">Каталог</a>
+                    <a href="how-it-works.html">Как это работает</a>
+                    <a href="about.html">О нас</a>
+                    <a href="contacts.html">Контакты</a>
+                </div>
+                <div class="mobile-auth-buttons">
+                    <a href="auth.html" class="btn btn-outline mobile-btn">Войти</a>
+                    <a href="auth.html" class="btn btn-primary mobile-btn">Регистрация</a>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- Main Content -->
     <main class="profile-section">
-        <div class="profile-grid">
-            <!-- Sidebar -->
-            <aside class="profile-sidebar">
-                <div class="user-info">
-                    <div class="user-avatar">
-                        <img src="images/avatars/owner.jpg" alt="Аватар пользователя">
-                        <button class="avatar-edit">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
-                    <h2>Иван Петров</h2>
-                    <p class="user-email">ivan@example.com</p>
-                    <div class="user-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.8</span>
-                        <span class="reviews-count">(24 отзыва)</span>
-                    </div>
-                    <div class="user-verification">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Верифицирован</span>
-                    </div>
-                </div>
-                <nav class="profile-nav">
-                    <a href="active-rentals.html">
-                        <i class="fas fa-clock"></i>
-                        <span>Активные аренды</span>
-                    </a>
-                    <a href="my-items.html">
-                        <i class="fas fa-box"></i>
-                        <span>Мои вещи</span>
-                    </a>
-                    <a href="rental-history.html" class="active">
-                        <i class="fas fa-history"></i>
-                        <span>История аренд</span>
-                    </a>
-                    <a href="reviews.html">
-                        <i class="fas fa-star"></i>
-                        <span>Отзывы</span>
-                    </a>
-                    <a href="earnings.html">
-                        <i class="fas fa-wallet"></i>
-                        <span>Заработок</span>
-                    </a>
-                    <a href="settings.html">
-                        <i class="fas fa-cog"></i>
-                        <span>Настройки</span>
-                    </a>
-                </nav>
-            </aside>
-
-            <!-- Content -->
-            <div class="profile-content">
-                <div class="section-header">
-                    <h1>История аренд</h1>
-                    <div class="filter-options">
-                        <select class="form-select">
-                            <option value="all">Все вещи</option>
-                            <option value="camera">Камера Sony A7III</option>
-                            <option value="bike">Велосипед Trek</option>
-                            <option value="drill">Дрель Bosch</option>
-                        </select>
-                        <select class="form-select">
-                            <option value="all">Все статусы</option>
-                            <option value="completed">Завершено</option>
-                            <option value="cancelled">Отменено</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="history-grid">
-                    <!-- Rental 1 -->
-                    <div class="history-card">
-                        <div class="history-image">
-                            <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+        <div class="container">
+            <div class="profile-grid">
+                <!-- Sidebar -->
+                <aside class="profile-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <img src="images/avatars/owner.jpg" alt="Аватар пользователя">
+                            <button class="avatar-edit">
+                                <i class="fas fa-camera"></i>
+                            </button>
                         </div>
-                        <div class="history-info">
-                            <h3>Камера Sony A7III</h3>
-                            <div class="history-dates">
-                                <span>12.03.2024 - 15.03.2024</span>
+                        <h2>Иван Петров</h2>
+                        <p class="user-email">ivan@example.com</p>
+                        <div class="user-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                            <span class="reviews-count">(24 отзыва)</span>
+                        </div>
+                        <div class="user-verification">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Верифицирован</span>
+                        </div>
+                    </div>
+                    <nav class="profile-nav">
+                        <a href="active-rentals.html"><i class="fas fa-clock"></i> Активные аренды</a>
+                        <a href="my-items.html"><i class="fas fa-box"></i> Мои вещи</a>
+                        <a href="rental-history.html" class="active"><i class="fas fa-history"></i> История аренд</a>
+                        <a href="reviews.html"><i class="fas fa-star"></i> Отзывы</a>
+                        <a href="earnings.html"><i class="fas fa-wallet"></i> Заработок</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> Настройки</a>
+                    </nav>
+                </aside>
+
+                <!-- Content -->
+                <div class="profile-content">
+                    <div class="section-title">
+                        <h2>История аренд</h2>
+                    </div>
+                    <div class="section-header">
+                        <div class="filter-options">
+                            <div class="filter-group">
+                                <select class="form-select">
+                                    <option value="all">Все вещи</option>
+                                    <option value="camera">Камера Sony A7III</option>
+                                    <option value="bike">Велосипед Trek</option>
+                                    <option value="drill">Дрель Bosch</option>
+                                </select>
                             </div>
-                            <div class="renter-info">
-                                <div class="renter-avatar">
-                                    <img src="images/avatars/user1.jpg" alt="Аватар арендатора">
+                            <div class="filter-group">
+                                <select class="form-select">
+                                    <option value="all">Все статусы</option>
+                                    <option value="completed">Завершено</option>
+                                    <option value="cancelled">Отменено</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="history-grid">
+                        <!-- Rental 1 -->
+                        <div class="history-card">
+                            <div class="history-image">
+                                <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+                            </div>
+                            <div class="history-info">
+                                <h3>Камера Sony A7III</h3>
+                                <div class="history-dates">
+                                    <span>12.03.2024 - 15.03.2024</span>
                                 </div>
-                                <div class="renter-details">
-                                    <h4>Алексей Иванов</h4>
-                                    <div class="renter-rating">
-                                        <i class="fas fa-star"></i>
-                                        <span>4.9</span>
+                                <div class="renter-info">
+                                    <div class="renter-avatar">
+                                        <img src="images/avatars/user1.jpg" alt="Аватар арендатора">
+                                    </div>
+                                    <div class="renter-details">
+                                        <h4>Алексей Иванов</h4>
+                                        <div class="renter-rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>4.9</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="history-status completed">Завершено</div>
-                            <div class="history-actions">
-                                <button class="btn btn-outline">
-                                    <i class="fas fa-comment"></i>
-                                    Оставить отзыв
-                                </button>
-                                <button class="btn btn-outline">
-                                    <i class="fas fa-file-alt"></i>
-                                    Детали
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Rental 2 -->
-                    <div class="history-card">
-                        <div class="history-image">
-                            <img src="images/items/bike.jpg" alt="Велосипед Trek">
-                        </div>
-                        <div class="history-info">
-                            <h3>Велосипед Trek</h3>
-                            <div class="history-dates">
-                                <span>05.03.2024 - 08.03.2024</span>
-                            </div>
-                            <div class="renter-info">
-                                <div class="renter-avatar">
-                                    <img src="images/avatars/user2.jpg" alt="Аватар арендатора">
+                                <div class="history-status completed">Завершено</div>
+                                <div class="history-actions">
+                                    <button class="btn btn-outline">Оставить отзыв</button>
+                                    <button class="btn btn-outline">Детали</button>
                                 </div>
-                                <div class="renter-details">
-                                    <h4>Мария Сидорова</h4>
-                                    <div class="renter-rating">
-                                        <i class="fas fa-star"></i>
-                                        <span>4.7</span>
+                            </div>
+                        </div>
+                        <!-- Rental 2 -->
+                        <div class="history-card">
+                            <div class="history-image">
+                                <img src="images/items/bike.jpg" alt="Велосипед Trek">
+                            </div>
+                            <div class="history-info">
+                                <h3>Велосипед Trek</h3>
+                                <div class="history-dates">
+                                    <span>05.03.2024 - 08.03.2024</span>
+                                </div>
+                                <div class="renter-info">
+                                    <div class="renter-avatar">
+                                        <img src="images/avatars/user2.jpg" alt="Аватар арендатора">
+                                    </div>
+                                    <div class="renter-details">
+                                        <h4>Мария Сидорова</h4>
+                                        <div class="renter-rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>4.7</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="history-status completed">Завершено</div>
-                            <div class="history-actions">
-                                <button class="btn btn-outline">
-                                    <i class="fas fa-comment"></i>
-                                    Оставить отзыв
-                                </button>
-                                <button class="btn btn-outline">
-                                    <i class="fas fa-file-alt"></i>
-                                    Детали
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Rental 3 -->
-                    <div class="history-card">
-                        <div class="history-image">
-                            <img src="images/items/drill.jpg" alt="Дрель Bosch">
-                        </div>
-                        <div class="history-info">
-                            <h3>Дрель Bosch</h3>
-                            <div class="history-dates">
-                                <span>01.03.2024 - 03.03.2024</span>
-                            </div>
-                            <div class="renter-info">
-                                <div class="renter-avatar">
-                                    <img src="images/avatars/user3.jpg" alt="Аватар арендатора">
+                                <div class="history-status completed">Завершено</div>
+                                <div class="history-actions">
+                                    <button class="btn btn-outline">Оставить отзыв</button>
+                                    <button class="btn btn-outline">Детали</button>
                                 </div>
-                                <div class="renter-details">
-                                    <h4>Петр Смирнов</h4>
-                                    <div class="renter-rating">
-                                        <i class="fas fa-star"></i>
-                                        <span>4.8</span>
+                            </div>
+                        </div>
+                        <!-- Rental 3 -->
+                        <div class="history-card">
+                            <div class="history-image">
+                                <img src="images/items/drill.jpg" alt="Дрель Bosch">
+                            </div>
+                            <div class="history-info">
+                                <h3>Дрель Bosch</h3>
+                                <div class="history-dates">
+                                    <span>01.03.2024 - 03.03.2024</span>
+                                </div>
+                                <div class="renter-info">
+                                    <div class="renter-avatar">
+                                        <img src="images/avatars/user3.jpg" alt="Аватар арендатора">
+                                    </div>
+                                    <div class="renter-details">
+                                        <h4>Петр Смирнов</h4>
+                                        <div class="renter-rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>4.8</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="history-status cancelled">Отменено</div>
-                            <div class="history-actions">
-                                <button class="btn btn-outline">
-                                    <i class="fas fa-file-alt"></i>
-                                    Детали
-                                </button>
+                                <div class="history-status cancelled">Отменено</div>
+                                <div class="history-actions">
+                                    <button class="btn btn-outline">Детали</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Pagination -->
-                <div class="pagination">
-                    <button class="btn btn-outline">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="btn btn-primary">1</button>
-                    <button class="btn btn-outline">2</button>
-                    <button class="btn btn-outline">3</button>
-                    <button class="btn btn-outline">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="btn btn-outline"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn btn-primary">1</button>
+                        <button class="btn btn-outline">2</button>
+                        <button class="btn btn-outline">3</button>
+                        <button class="btn btn-outline"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>ShareHub</h3>
-                <p>Платформа для аренды вещей между людьми</p>
-            </div>
-            <div class="footer-section">
-                <h3>Контакты</h3>
-                <p>Email: support@sharehub.com</p>
-                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
-            </div>
-            <div class="footer-section">
-                <h3>Социальные сети</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-vk"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
+    <footer class="footer stylish-footer">
+        <div class="footer-inner">
+            <a href="index.html" class="footer-logo">ShareHub</a>
+            <div class="footer-socials">
+                <a href="#" class="footer-social vk"><i class="fab fa-vk"></i></a>
+                <a href="#" class="footer-social tg"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="footer-social ig"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="footer-bottom stylish-footer-bottom">
             <p>&copy; 2024 ShareHub. Все права защищены.</p>
         </div>
     </footer>

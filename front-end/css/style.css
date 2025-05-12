@@ -3162,3 +3162,7 @@ body {
 .g_id_signin > div {
     width: 100% !important;
 }
+
+.profile-section .container {
+    margin-top: 90px; /* или padding-top: 90px; */
+}
