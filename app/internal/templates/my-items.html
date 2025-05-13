@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои вещи - ShareHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="/">ShareHub</a>
+            </div>
+            <div class="nav-links">
+                <a href="/catalog">Каталог</a>
+                <a href="/how-it-works">Как это работает</a>
+                <a href="/about" class="active">О нас</a>
+                <a href="/contacts">Контакты</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="/login" class="btn btn-outline">Войти</a>
+                <a href="/register" class="btn btn-primary">Регистрация</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+        </nav>
+        <div class="mobile-nav" id="mobileNav">
+            <div class="mobile-nav-content">
+                <div class="mobile-nav-links">
+                    <a href="/catalog">Каталог</a>
+                    <a href="/how-it-works">Как это работает</a>
+                    <a href="/about">О нас</a>
+                    <a href="/contacts">Контакты</a>
+                </div>
+                <div class="mobile-auth-buttons">
+                    <a href="/login" class="btn btn-outline mobile-btn">Войти</a>
+                    <a href="/register" class="btn btn-primary mobile-btn">Регистрация</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="profile-section">
+        <div class="container">
+            <div class="profile-grid">
+                <!-- Sidebar -->
+                <aside class="profile-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <img src="images/avatars/owner.jpg" alt="Аватар пользователя">
+                            <button class="avatar-edit">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <h2>Иван Петров</h2>
+                        <p class="user-email">ivan@example.com</p>
+                        <div class="user-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                            <span class="reviews-count">(24 отзыва)</span>
+                        </div>
+                        <div class="user-verification">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Верифицирован</span>
+                        </div>
+                    </div>
+                    <nav class="profile-nav">
+                        <a href="active-rentals.html"><i class="fas fa-clock"></i> Активные аренды</a>
+                        <a href="my-items.html" class="active"><i class="fas fa-box"></i> Мои вещи</a>
+                        <a href="rental-history.html"><i class="fas fa-history"></i> История аренд</a>
+                        <a href="reviews.html"><i class="fas fa-star"></i> Отзывы</a>
+                        <a href="earnings.html"><i class="fas fa-wallet"></i> Заработок</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> Настройки</a>
+                    </nav>
+                </aside>
+
+                <!-- Content -->
+                <div class="profile-content">
+                    <div class="section-title">
+                        <h2>Мои вещи</h2>
+                    </div>
+                    <div class="section-header">
+                        <a href="add-item.html" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Добавить вещь
+                        </a>
+                    </div>
+                    <div class="items-grid">
+                        <!-- Item 1 -->
+                        <div class="item-card">
+                            <img src="images/items/camera.jpg" alt="Камера Sony A7III">
+                            <div class="item-info">
+                                <h3>Камера Sony A7III</h3>
+                                <div class="item-meta">
+                                    <span class="price">1,500 ₽/день</span>
+                                    <span class="location"><i class="fas fa-map-marker-alt"></i> Москва</span>
+                                </div>
+                                <div class="item-details">
+                                    <div class="item-rating">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.8</span>
+                                    </div>
+                                    <div class="item-rentals">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>12 аренд</span>
+                                    </div>
+                                </div>
+                                <div class="item-actions">
+                                    <a href="edit-item.html" class="btn btn-outline">Редактировать</a>
+                                    <button class="btn btn-danger">Удалить</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="item-card">
+                            <img src="images/items/bike.jpg" alt="Велосипед Trek">
+                            <div class="item-info">
+                                <h3>Велосипед Trek</h3>
+                                <div class="item-meta">
+                                    <span class="price">800 ₽/день</span>
+                                    <span class="location"><i class="fas fa-map-marker-alt"></i> Москва</span>
+                                </div>
+                                <div class="item-details">
+                                    <div class="item-rating">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.9</span>
+                                    </div>
+                                    <div class="item-rentals">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>8 аренд</span>
+                                    </div>
+                                </div>
+                                <div class="item-actions">
+                                    <a href="edit-item.html" class="btn btn-outline">Редактировать</a>
+                                    <button class="btn btn-danger">Удалить</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="item-card">
+                            <img src="images/items/drill.jpg" alt="Дрель Bosch">
+                            <div class="item-info">
+                                <h3>Дрель Bosch</h3>
+                                <div class="item-meta">
+                                    <span class="price">500 ₽/день</span>
+                                    <span class="location"><i class="fas fa-map-marker-alt"></i> Москва</span>
+                                </div>
+                                <div class="item-details">
+                                    <div class="item-rating">
+                                        <i class="fas fa-star"></i>
+                                        <span>4.7</span>
+                                    </div>
+                                    <div class="item-rentals">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>15 аренд</span>
+                                    </div>
+                                </div>
+                                <div class="item-actions">
+                                    <a href="edit-item.html" class="btn btn-outline">Редактировать</a>
+                                    <button class="btn btn-danger">Удалить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer stylish-footer">
+        <div class="footer-inner">
+            <a href="index.html" class="footer-logo">ShareHub</a>
+            <div class="footer-socials">
+                <a href="#" class="footer-social vk"><i class="fab fa-vk"></i></a>
+                <a href="#" class="footer-social tg"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="footer-social ig"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom stylish-footer-bottom">
+            <p>&copy; 2024 ShareHub. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/profile.js"></script>
+</body>
+</html> 

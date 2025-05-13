@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - ShareHub</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="/css/faq.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="/">ShareHub</a>
+            </div>
+            <div class="nav-links">
+                <a href="/catalog">Каталог</a>
+                <a href="/how-it-works">Как это работает</a>
+                <a href="/about" class="active">О нас</a>
+                <a href="/contacts">Контакты</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="/login" class="btn btn-outline">Войти</a>
+                <a href="/register" class="btn btn-primary">Регистрация</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+        </nav>
+        <div class="mobile-nav" id="mobileNav">
+            <div class="mobile-nav-content">
+                <div class="mobile-nav-links">
+                    <a href="/catalog">Каталог</a>
+                    <a href="/how-it-works">Как это работает</a>
+                    <a href="/about">О нас</a>
+                    <a href="/contacts">Контакты</a>
+                </div>
+                <div class="mobile-auth-buttons">
+                    <a href="/login" class="btn btn-outline mobile-btn">Войти</a>
+                    <a href="/register" class="btn btn-primary mobile-btn">Регистрация</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Свяжитесь с нами</h1>
+            <p>Мы всегда на связи и готовы помочь вам с любыми вопросами</p>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="contact-info-section">
+        <div class="container">
+            <div class="contact-grid reveal">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>support@sharehub.com</p>
+                    <a href="mailto:support@sharehub.com" class="btn btn-outline">Написать</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Телефон</h3>
+                    <p>+7 (XXX) XXX-XX-XX</p>
+                    <a href="tel:+7XXXXXXXXXX" class="btn btn-outline">Позвонить</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Адрес</h3>
+                    <p>г. Москва, ул. Примерная, д. 123</p>
+                    <a href="#" class="btn btn-outline">На карте</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="contact-form-container reveal">
+                <div class="contact-form-info">
+                    <h2>Напишите нам</h2>
+                    <p>Заполните форму ниже, и мы свяжемся с вами в ближайшее время. Обычно мы отвечаем в течение 24 часов.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="VK"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" name="name" required placeholder="Введите ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Введите ваш email">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Тема</label>
+                        <input type="text" id="subject" name="subject" required placeholder="Введите тему сообщения">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Введите ваше сообщение"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Часто задаваемые вопросы</h2>
+            <div class="faq-grid reveal">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как быстро вы отвечаете на сообщения?</h3>
+                        <button class="faq-toggle" aria-label="Развернуть ответ">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Мы стараемся отвечать на все сообщения в течение 24 часов в рабочие дни. В выходные и праздничные дни ответ может занять немного больше времени.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Можно ли встретиться лично?</h3>
+                        <button class="faq-toggle" aria-label="Развернуть ответ">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, мы можем организовать личную встречу в нашем офисе по предварительной записи. Для этого просто укажите в форме обратной связи, что хотели бы встретиться лично.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Есть ли у вас представительства в других городах?</h3>
+                        <button class="faq-toggle" aria-label="Развернуть ответ">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="faq-answer">
+                        <p>В настоящее время наш офис находится только в Москве, но мы активно работаем над расширением и планируем открыть представительства в других крупных городах России.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как стать партнером?</h3>
+                        <button class="faq-toggle" aria-label="Развернуть ответ">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Отправьте нам сообщение через форму обратной связи, указав в теме "Партнерство". Мы рассмотрим ваше предложение и свяжемся с вами для обсуждения деталей сотрудничества.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer stylish-footer">
+        <div class="footer-inner">
+            <a href="/" class="footer-logo">ShareHub</a>
+            <div class="footer-socials">
+                <a href="#" class="footer-social vk" aria-label="VK"><i class="fab fa-vk"></i></a>
+                <a href="#" class="footer-social tg" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="footer-social ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom stylish-footer-bottom">
+            <p>&copy; 2025 ShareHub. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/faq.js"></script>
+</body>
+</html> 

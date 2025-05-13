@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareHub - Аренда вещей между людьми</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="/">ShareHub</a>
+            </div>
+            <div class="nav-links">
+                <a href="/catalog">Каталог</a>
+                <a href="/how-it-works">Как это работает</a>
+                <a href="/about" class="active">О нас</a>
+                <a href="/contacts">Контакты</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="/login" class="btn btn-outline">Войти</a>
+                <a href="/register" class="btn btn-primary">Регистрация</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+        </nav>
+        <div class="mobile-nav" id="mobileNav">
+            <div class="mobile-nav-content">
+                <div class="mobile-nav-links">
+                    <a href="/catalog">Каталог</a>
+                    <a href="/how-it-works">Как это работает</a>
+                    <a href="/about">О нас</a>
+                    <a href="/contacts">Контакты</a>
+                </div>
+                <div class="mobile-auth-buttons">
+                    <a href="/login" class="btn btn-outline mobile-btn">Войти</a>
+                    <a href="/register" class="btn btn-primary mobile-btn">Регистрация</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="hero-content">
+            <h1>Арендуйте вещи у людей рядом</h1>
+            <p>От одежды до инструментов - всё, что вам нужно, в одном месте</p>
+            <form class="search-box" action="/catalog" method="GET">
+                <input type="search" name="tovar" placeholder="Что вы ищете?">
+                <input type="search" name="city" placeholder="Где?">
+                <button type="submit" class="btn btn-primary">Найти</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="section-title"><h2>Статистика</h2></div>
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" data-count="150000">0</div>
+                <div class="stat-label">Активных пользователей</div>
+                <div class="stat-trend">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+15% за месяц</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="500000">0</div>
+                <div class="stat-label">Всего пользователей</div>
+                <div class="stat-trend">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+25% за месяц</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="100000">0</div>
+                <div class="stat-label">Арендованных вещей</div>
+                <div class="stat-trend">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+30% за месяц</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="section-title"><h2>Вещи рядом с вами</h2></div>
+        <div class="map-container">
+            <div class="map-info">
+                <p>100 000+ вещей доступны для аренды в вашем городе</p>
+                <div class="map-stats new-stats">
+                    <div class="map-stat">
+                        <div class="stat-icon" style="background:#E3F6FC;color:#1DA1F2;"><i class="fas fa-city"></i></div>
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Города</div>
+                    </div>
+                    <div class="map-stat">
+                        <div class="stat-icon" style="background:#E8F5E9;color:#43A047;"><i class="fas fa-box"></i></div>
+                        <div class="stat-number">100k+</div>
+                        <div class="stat-label">Вещей</div>
+                    </div>
+                    <div class="map-stat">
+                        <div class="stat-icon" style="background:#FFF3E0;color:#FB8C00;"><i class="fas fa-headset"></i></div>
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Поддержка</div>
+                    </div>
+                </div>
+            </div>
+            <div class="map-wrapper">
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-title"><h2>Как это работает</h2></div>
+        <div class="how-it-works-container">
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">01</div>
+                        <h3>Найдите нужную вещь</h3>
+                        <p>Используйте поиск или просмотрите категории</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">02</div>
+                        <h3>Забронируйте</h3>
+                        <p>Выберите даты и подтвердите бронирование</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">03</div>
+                        <h3>Получите вещь</h3>
+                        <p>Встретьтесь с владельцем и заберите вещь</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-number">04</div>
+                        <h3>Верните и оцените</h3>
+                        <p>Верните вещь и оставьте отзыв</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="catalog">
+        <div class="section-title"><h2>Популярные категории</h2></div>
+        <div class="category-grid">
+            <a href="catalog.html?category=clothing" class="category-card">
+                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Одежда">
+                <h3>Одежда</h3>
+            </a>
+            <a href="catalog.html?category=electronics" class="category-card">
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80" alt="Техника">
+                <h3>Техника</h3>
+            </a>
+            <a href="catalog.html?category=furniture" class="category-card">
+                <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=400&q=80" alt="Мебель">
+                <h3>Мебель</h3>
+            </a>
+            <a href="catalog.html?category=tools" class="category-card">
+                <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="Инструменты">
+                <h3>Инструменты</h3>
+            </a>
+            <a href="catalog.html?category=sports" class="category-card">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Спорт">
+                <h3>Спорт</h3>
+            </a>
+            <a href="catalog.html?category=photo" class="category-card">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Фото/Видео">
+                <h3>Фото/Видео</h3>
+            </a>
+            <a href="catalog.html?category=books" class="category-card">
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80" alt="Книги">
+                <h3>Книги</h3>
+            </a>
+            <a href="catalog.html?category=music" class="category-card">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" alt="Музыкальные инструменты">
+                <h3>Музыкальные инструменты</h3>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="section-title"><h2>Почему выбирают нас</h2></div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Безопасность</h3>
+                <p>Проверка пользователей и система залогов</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h3>Выгодно</h3>
+                <p>Экономия до 70% по сравнению с покупкой</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>Быстро</h3>
+                <p>Находите нужные вещи рядом с домом</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Надёжно</h3>
+                <p>Рейтинговая система и отзывы</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <div class="section-title"><h2>Нам доверяют</h2></div>
+        <div class="partners-grid">
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Sberbank_Logo_2020.svg" alt="Сбер" width="64" height="64">
+                </div>
+                <div class="partner-info">
+                    <h3>Сбер</h3>
+                    <p>Финансовый партнёр</p>
+                    <div class="partner-description">
+                        <p>Безопасные платежи и защита транзакций</p>
+                    </div>
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Yandex_logo_2021.svg" alt="Яндекс" width="64" height="64">
+                </div>
+                <div class="partner-info">
+                    <h3>Яндекс</h3>
+                    <p>Технологический партнёр</p>
+                    <div class="partner-description">
+                        <p>Умные алгоритмы поиска и рекомендаций</p>
+                    </div>
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/VK.com-logo.svg" alt="VK" width="64" height="64">
+                </div>
+                <div class="partner-info">
+                    <h3>VK</h3>
+                    <p>Социальный партнёр</p>
+                    <div class="partner-description">
+                        <p>Социальная интеграция и безопасность</p>
+                    </div>
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Tinkoff_Logo_2021.svg" alt="Тинькофф" width="64" height="64">
+                </div>
+                <div class="partner-info">
+                    <h3>Тинькофф</h3>
+                    <p>Платежный партнёр</p>
+                    <div class="partner-description">
+                        <p>Быстрые переводы и кэшбэк</p>
+                    </div>
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/SberMarket_logo.svg" alt="СберМаркет" width="64" height="64">
+                </div>
+                <div class="partner-info">
+                    <h3>СберМаркет</h3>
+                    <p>Партнёр по доставке</p>
+                    <div class="partner-description">
+                        <p>Быстрая доставка товаров</p>
+                    </div>
+                </div>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Ozon_Logo_2020.svg" alt="Ozon" width="64" height="64">
+                </div>
+                <div class="partner-info">
+                    <h3>Ozon</h3>
+                    <p>Маркетплейс</p>
+                    <div class="partner-description">
+                        <p>Широкий выбор товаров</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="partners-cta">
+            <h3>Станьте нашим партнёром</h3>
+            <p>Присоединяйтесь к экосистеме ShareHub и развивайте свой бизнес</p>
+            <a href="/partners" class="btn btn-primary">Стать партнёром</a>
+        </div>
+    </section>
+
+    <!-- Featured Items -->
+    <section class="featured-items">
+        <div class="section-title"><h2>Популярные вещи</h2></div>
+        <div class="items-grid">
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Камера Sony A7III">
+                <div class="item-info">
+                    <h3>Камера Sony A7III</h3>
+                    <div class="item-meta">
+                        <span class="price">1500 ₽/день</span>
+                        <span class="location">Москва</span>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                        <div class="item-deposit">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Залог: 30000 ₽</span>
+                        </div>
+                    </div>
+                    <a href="item.html?id=1" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=400&q=80" alt="Велосипед Trek">
+                <div class="item-info">
+                    <h3>Велосипед Trek</h3>
+                    <div class="item-meta">
+                        <span class="price">800 ₽/день</span>
+                        <span class="location">Москва</span>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="item-deposit">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Залог: 15000 ₽</span>
+                        </div>
+                    </div>
+                    <a href="item.html?id=2" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1515168833906-d2a3b82b3029?auto=format&fit=crop&w=400&q=80" alt="Дрель Bosch">
+                <div class="item-info">
+                    <h3>Дрель Bosch</h3>
+                    <div class="item-meta">
+                        <span class="price">500 ₽/день</span>
+                        <span class="location">Москва</span>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <div class="item-deposit">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Залог: 5000 ₽</span>
+                        </div>
+                    </div>
+                    <a href="item.html?id=3" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80" alt="Ноутбук MacBook Pro M1">
+                <div class="item-info">
+                    <h3>Ноутбук MacBook Pro M1</h3>
+                    <div class="item-meta">
+                        <span class="price">1000 ₽/день</span>
+                        <span class="location">Москва</span>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <div class="item-deposit">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Залог: 50000 ₽</span>
+                        </div>
+                    </div>
+                    <a href="item.html?id=4" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+            <div class="item-card">
+                <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fdc?auto=format&fit=crop&w=400&q=80" alt="Дрон DJI Mavic Pro">
+                <div class="item-info">
+                    <h3>Дрон DJI Mavic Pro</h3>
+                    <div class="item-meta">
+                        <span class="price">2000 ₽/день</span>
+                        <span class="location">Санкт-Петербург</span>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="item-deposit">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Залог: 20000 ₽</span>
+                        </div>
+                    </div>
+                    <a href="item.html?id=5" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer stylish-footer">
+        <div class="footer-inner">
+            <a href="/" class="footer-logo">ShareHub</a>
+            <div class="footer-socials">
+                <a href="#" class="footer-social vk" aria-label="VK"><i class="fab fa-vk"></i></a>
+                <a href="#" class="footer-social tg" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="footer-social ig" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom stylish-footer-bottom">
+            <p>&copy; 2025 ShareHub. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="/js/map.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html> 
