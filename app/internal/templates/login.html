@@ -23,8 +23,8 @@
                 <a href="/contacts">Контакты</a>
             </div>
             <div class="auth-buttons">
-                <a href="/login" class="btn btn-outline">Войти</a>
-                <a href="/register" class="btn btn-primary">Регистрация</a>
+                <a href="/login/" class="btn btn-outline">Войти</a>
+                <a href="/register/" class="btn btn-primary">Регистрация</a>
             </div>
             <div class="mobile-menu-btn">
                 <span class="burger-line"></span>
@@ -41,8 +41,8 @@
                     <a href="/contacts">Контакты</a>
                 </div>
                 <div class="mobile-auth-buttons">
-                    <a href="/login" class="btn btn-outline mobile-btn">Войти</a>
-                    <a href="/register" class="btn btn-primary mobile-btn">Регистрация</a>
+                    <a href="/login/" class="btn btn-outline mobile-btn">Войти</a>
+                    <a href="/register/" class="btn btn-primary mobile-btn">Регистрация</a>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
     <main class="auth-section">
         <div class="auth-container">
             <div class="section-title"><h2>Войти в аккаунт</h2></div>
-            <form class="auth-form active" autocomplete="off">
+            <form class="auth-form active">
                 <div class="form-group">
                     <label for="reg-email">Email</label>
                     <input type="email" id="reg-email" name="email" placeholder="Ваш email" required>
@@ -74,19 +74,19 @@
                         Войти через Яндекс
                     </button>
                     <div id="g_id_onload"
-                         data-client_id="YOUR_GOOGLE_CLIENT_ID"
-                         data-context="signin"
-                         data-ux_mode="popup"
-                         data-callback="handleGoogleSignIn"
-                         data-auto_prompt="false">
+                        data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                        data-context="signin"
+                        data-ux_mode="popup"
+                        data-callback="handleGoogleSignIn"
+                        data-auto_prompt="false">
                     </div>
                     <div class="g_id_signin"
-                         data-type="standard"
-                         data-shape="rectangular"
-                         data-theme="outline"
-                         data-text="signin_with"
-                         data-size="large"
-                         data-logo_alignment="left">
+                        data-type="standard"
+                        data-shape="rectangular"
+                        data-theme="outline"
+                        data-text="signin_with"
+                        data-size="large"
+                        data-logo_alignment="left">
                     </div>
                 </div>
                 <p style="text-align:center; margin-top:1.5rem; color:#666;">Еще нет аккаунта? <a href="auth.html" style="color:var(--primary-color);text-decoration:underline;">Зарегистрироваться</a></p>
@@ -108,61 +108,6 @@
         </div>
     </footer>
     <script src="/js/login.js"></script>
-    <script>
-
-        function togglePassword(inputId, button) {
-            const input = document.getElementById(inputId);
-            if (input) {
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    button.querySelector('i').className = 'fa-solid fa-eye-slash';
-                } else {
-                    input.type = 'password';
-                    button.querySelector('i').className = 'fa-solid fa-eye';
-                }
-            }
-        }
-        // Обработчик входа через Яндекс
-        function handleYandexLogin() {
-            const clientId = 'YOUR_YANDEX_CLIENT_ID';
-            const redirectUri = encodeURIComponent(window.location.origin + '/auth.html');
-            const responseType = 'token';
-            const display = 'popup';
-            
-            const yandexAuthUrl = `https://oauth.yandex.ru/authorize?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&display=${display}`;
-            
-            window.open(yandexAuthUrl, 'yandexAuth', 'width=600,height=600');
-        }
-
-        // Обработчик входа через Google
-        function handleGoogleSignIn(response) {
-            console.log('Google авторизация успешна:', response);
-            handleSocialLogin('google', response);
-        }
-
-        // Общая функция обработки социальной авторизации
-        function handleSocialLogin(provider, data) {
-            const userData = {
-                provider: provider,
-                token: data.access_token || data.credential,
-            };
-
-            localStorage.setItem('currentUser', JSON.stringify(userData));
-            window.location.href = 'catalog.html';
-        }
-
-        // Обработка ответа от Яндекс OAuth
-        window.addEventListener('load', function() {
-            const hash = window.location.hash;
-            if (hash) {
-                const params = new URLSearchParams(hash.substring(1));
-                const accessToken = params.get('access_token');
-                if (accessToken) {
-                    handleSocialLogin('yandex', { access_token: accessToken });
-                }
-            }
-        });
-    </script>
 </body>
 </html> 
 </html> 

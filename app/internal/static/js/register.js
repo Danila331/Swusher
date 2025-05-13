@@ -67,35 +67,18 @@ document.querySelector('.auth-form').addEventListener('submit', async (e) => {
             })
         });
 
+        const data = await response.json();
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Ошибка при регистрации');
+            throw new Error(data.message || 'Ошибка при регистрации');
         }
 
-        const userData = await response.json();
-        
         // Save user data to session storage
-        sessionStorage.setItem('currentUser', JSON.stringify(userData));
-        
-        // Show success message
-        alert('Регистрация успешна! Добро пожаловать в ShareHub!');
-        
+        sessionStorage.setItem('currentUser', JSON.stringify(data));
+
         // Redirect to profile page
-        window.location.href = 'profile.html';
+        window.location.href = '/profile';
     } catch (error) {
         alert(error.message);
-    }
-});
-
-// Check if user is already logged in
-document.addEventListener('DOMContentLoaded', () => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || 
-                       JSON.parse(sessionStorage.getItem('currentUser'));
-    
-    if (currentUser) {
-        authState.isAuthenticated = true;
-        authState.currentUser = currentUser;
-        window.location.href = 'catalog.html';
     }
 });
 
@@ -137,20 +120,52 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Обработчик входа через Яндекс
 async function handleYandexLogin() {
-    const clientId = 'YOUR_YANDEX_CLIENT_ID'; // Замените на ваш ID приложения Яндекс
-    const redirectUri = encodeURIComponent(window.location.origin + '/register.html');
+    const clientId = '7326f484a76e4cc58292b13494195c18'; // Замените на ваш ID приложения Яндекс
+    const redirectUri = 'http://localhost:8080/login/';
     const responseType = 'token';
-    const display = 'popup';
     
-    const yandexAuthUrl = `https://oauth.yandex.ru/authorize?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&display=${display}`;
+    const yandexAuthUrl = `https://oauth.yandex.ru/authorize?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}`;
     
-    window.open(yandexAuthUrl, 'yandexAuth', 'width=600,height=600');
+    window.location.href = yandexAuthUrl;
 }
+
+// Обработка ответа от Яндекс OAuth
+window.addEventListener('load', async function() {
+    if (window.location.pathname !== '/login/') return;
+    const hash = window.location.hash;
+    if (hash) {
+        const params = new URLSearchParams(hash.substring(1));
+        const accessToken = params.get('access_token');
+        if (accessToken) {
+            try {
+                const response = await fetch('/register/yandex', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        access_token: accessToken
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Ошибка при авторизации через Яндекс');
+                }
+
+                const userData = await response.json();
+                sessionStorage.setItem('currentUser', JSON.stringify(userData));
+                window.location.href = '/profile';
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+    }
+});
 
 // Обработчик входа через Google
 async function handleGoogleSignIn(response) {
     try {
-        const result = await fetch('http://localhost:3000/api/auth/google', {
+        const result = await fetch('/register/google', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -171,35 +186,3 @@ async function handleGoogleSignIn(response) {
         alert(error.message);
     }
 }
-
-// Обработка ответа от Яндекс OAuth
-window.addEventListener('load', async function() {
-    const hash = window.location.hash;
-    if (hash) {
-        const params = new URLSearchParams(hash.substring(1));
-        const accessToken = params.get('access_token');
-        if (accessToken) {
-            try {
-                const response = await fetch('http://localhost:3000/api/auth/yandex', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        access_token: accessToken
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error('Ошибка при авторизации через Яндекс');
-                }
-
-                const userData = await response.json();
-                sessionStorage.setItem('currentUser', JSON.stringify(userData));
-                window.location.href = 'profile.html';
-            } catch (error) {
-                alert(error.message);
-            }
-        }
-    }
-});
