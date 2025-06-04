@@ -2,13 +2,14 @@ package servers
 
 import (
 	"github.com/Danila331/ShareHub/internal/handlers"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
 
 	"go.uber.org/zap"
 )
 
 // StartServer initializes and starts the Echo server on port 8080.
-func StartServer(logger *zap.Logger) {
+func StartServer(logger *zap.Logger, pool *pgxpool.Pool) {
 	// Start echo web app
 	app := echo.New()
 
@@ -22,6 +23,8 @@ func StartServer(logger *zap.Logger) {
 			c.Response().Header().Set("Pragma", "no-cache")
 			c.Response().Header().Set("Expires", "0")
 			c.Response().Header().Set("Surrogate-Control", "no-store")
+			c.Set("pool", pool)
+			c.Set("logger", logger)
 			return next(c)
 		}
 	})

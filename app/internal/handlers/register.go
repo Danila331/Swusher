@@ -4,14 +4,21 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
+	"github.com/Danila331/ShareHub/internal/models/users"
+	"github.com/Danila331/ShareHub/pkg/hash"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
+	"go.uber.org/zap"
 )
 
 // RegisterRequest represents the structure of the registration form.
 type RegisterRequest struct {
 	Name     string `json:"name" form:"name"`
+	LastName string `json:"lastname" form:"lastname"`
 	Email    string `json:"email" form:"email"`
+	Phone    string `json:"phone" form:"phone"`
 	Password string `json:"password" form:"password"`
 }
 
@@ -23,17 +30,40 @@ func RegisterPage(c echo.Context) error {
 
 // RegisterPost handles the form submission for the "Register" post reauest.
 func RegisterPost(c echo.Context) error {
-	var RegisterRequest RegisterRequest
-	if err := c.Bind(&RegisterRequest); err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{
-			"error": "Invalid request",
-		})
+	var req RegisterRequest
+	if err := c.Bind(&req); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
 	}
 
-	fmt.Println("RegisterRequest: ", RegisterRequest)
-	return c.JSON(http.StatusOK, map[string]string{
-		"message": "Form data received successfully",
-	})
+	// TODO: добавить валидацию req.Email, req.Phone, req.Password
+
+	hashPassword, err := hash.HashPassword(req.Password)
+	if err != nil {
+		c.Get("logger").(*zap.Logger).Error("failed to hash password", zap.Error(err))
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to hash password"})
+	}
+
+	var user users.User
+	user.Name = req.Name
+	user.LastName = req.LastName
+	user.Email = req.Email
+	user.Phone = req.Phone
+	user.Password = hashPassword
+	user.Role = "user"
+	user.IsVerified = false
+	user.PhotoPath = "default.png"
+
+	err = user.Create(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
+	if err != nil {
+		if strings.Contains(err.Error(), "уже существует") {
+			return c.JSON(http.StatusConflict, map[string]string{"error": "User already exists"})
+		}
+		c.Get("logger").(*zap.Logger).Error("failed to create user", zap.Error(err))
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
+	}
+
+	c.Get("logger").(*zap.Logger).Info("user registered", zap.String("email", user.Email))
+	return c.JSON(http.StatusCreated, map[string]string{"message": "User registered successfully"})
 }
 
 // RegisterByYandexPost handlers the "Auth" page post request for Yandex.

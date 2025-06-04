@@ -54,5 +54,5 @@ func main() {
 	}
 
 	// Start the server
-	servers.StartServer(logger)
+	servers.StartServer(logger, pool)
 }

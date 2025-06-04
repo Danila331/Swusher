@@ -83,8 +83,8 @@ func CreateTables(ctx context.Context, pool *pgxpool.Pool) error {
 	// Create the users table
 	_, err := pool.Exec(ctx, `
 		CREATE TABLE IF NOT EXISTS sharehub_users (
-		id UUID PRIMARY KEY,
-		nickname    VARCHAR(50) NOT NULL,
+		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+		nickname    VARCHAR(50) UNIQUE,
 		name        VARCHAR(100),
 		last_name   VARCHAR(100),
 		fatherland  VARCHAR(100),
@@ -95,9 +95,7 @@ func CreateTables(ctx context.Context, pool *pgxpool.Pool) error {
 		password    TEXT NOT NULL,
 		role        VARCHAR(50) NOT NULL DEFAULT 'user',
 		is_verified BOOLEAN NOT NULL DEFAULT FALSE,
-		created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-		x_coordinate DOUBLE PRECISION,
-		y_coordinate DOUBLE PRECISION
+		created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
 	);`)
 
 	if err != nil {

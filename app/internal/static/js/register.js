@@ -42,13 +42,14 @@ if (mobileMenuBtn2 && mobileNav) {
 // Handle register form submission
 document.querySelector('.auth-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const name = document.getElementById('reg-name').value;
+    const lastName = document.getElementById('reg-lastname').value;
     const email = document.getElementById('reg-email').value;
+    const phone = document.getElementById('reg-phone').value;
     const password = document.getElementById('reg-password').value;
     const confirmPassword = document.getElementById('reg-password2').value;
-    
-    // Validate passwords match
+
     if (password !== confirmPassword) {
         alert('Пароли не совпадают');
         return;
@@ -62,23 +63,41 @@ document.querySelector('.auth-form').addEventListener('submit', async (e) => {
             },
             body: JSON.stringify({
                 name,
+                lastName,
                 email,
+                phone,
                 password
             })
         });
 
-        const data = await response.json();
+        let data;
+        try {
+            data = await response.json();
+        } catch (jsonErr) {
+            // Если ответ не JSON
+            console.error('Ошибка парсинга ответа:', jsonErr);
+            alert('Неизвестная ошибка сервера. Попробуйте позже.');
+            return;
+        }
+        if (response.status === 409) {
+            // Пользователь уже существует
+            alert('Пользователь с таким email уже зарегистрирован.');
+            return;
+        }
         if (!response.ok) {
-            throw new Error(data.message || 'Ошибка при регистрации');
+            // Показываем сообщение от сервера, если оно есть
+            const errorMsg = data.error || data.message || 'Ошибка при регистрации';
+            alert(errorMsg);
+            console.error('Ошибка регистрации:', errorMsg, data);
+            return;
         }
 
-        // Save user data to session storage
         sessionStorage.setItem('currentUser', JSON.stringify(data));
-
-        // Redirect to profile page
         window.location.href = '/profile';
     } catch (error) {
-        alert(error.message);
+        // Ошибка сети или fetch
+        alert('Ошибка соединения с сервером. Проверьте интернет или попробуйте позже.');
+        console.error('Ошибка fetch:', error);
     }
 });
 
