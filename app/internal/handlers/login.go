@@ -5,6 +5,10 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Danila331/ShareHub/internal/models/users"
+	"github.com/Danila331/ShareHub/pkg/hash"
+	"github.com/Danila331/ShareHub/pkg/jwt"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
 )
 
@@ -32,22 +36,46 @@ func LoginPage(c echo.Context) error {
 
 // LoginPost handlers the "Auth" page post request.
 func LoginPost(c echo.Context) error {
-	var LoginRequest LoginRequest
-	if err := c.Bind(&LoginRequest); err != nil {
+	var loginRequest LoginRequest
+	if err := c.Bind(&loginRequest); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{
 			"error": "Invalid request",
 		})
 	}
+	fmt.Println("Login attempt for user:", loginRequest.Email, loginRequest.Password)
+	user := users.User{
+		Email: loginRequest.Email,
+	}
 
-	fmt.Println("LoginRequest: ", LoginRequest)
+	err := user.ReadByEmail(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
+	fmt.Println("Login attempt for user:", user.Email, user.Password)
+	if err != nil || !hash.CheckPasswordHash(loginRequest.Password, user.Password) {
+		return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Неверный email или пароль"})
+	}
+
+	// Генерируем JWT токен
+	token, err := jwt.GenerateToken(user.ID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to generate token"})
+	}
+
+	// Кладём токен в httpOnly cookie
+	cookie := new(http.Cookie)
+	cookie.Name = "token"
+	cookie.Value = token
+	cookie.Path = "/"
+	cookie.HttpOnly = true
+	cookie.Secure = false // true для https
+	cookie.SameSite = http.SameSiteLaxMode
+	c.SetCookie(cookie)
+
 	return c.JSON(http.StatusOK, map[string]string{
-		"message": "Form data received successfully",
+		"message": "Login successful",
 	})
 }
 
 // LoginByYandexPost handlers the "Auth" page post request for Yandex.
 func LoginByYandexPost(c echo.Context) error {
-	fmt.Println("Yandex OAuth login")
 	var req YandexLoginRequest
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"message": "Некорректные данные"})
@@ -76,8 +104,37 @@ func LoginByYandexPost(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Ошибка декодирования ответа Яндекса"})
 	}
 
-	fmt.Printf("Yandex user info: %+v\n", yandexUser)
-	return c.JSON(http.StatusOK, yandexUser)
+	// Получаем email и имя пользователя
+	email, ok := yandexUser["default_email"].(string)
+	if !ok || email == "" {
+		return c.JSON(http.StatusBadRequest, map[string]string{"message": "Не удалось получить email пользователя от Яндекса"})
+	}
+
+	// Проверяем, есть ли пользователь с таким email
+	user := users.User{Email: email}
+	err = user.ReadByEmail(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
+	if err != nil {
+		return c.JSON(http.StatusNotFound, map[string]string{"message": "Пользователь не найден"})
+	}
+	// Генерируем JWT токен
+	token, err := jwt.GenerateToken(user.ID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Ошибка генерации токена"})
+	}
+
+	// Кладём токен в httpOnly cookie
+	cookie := new(http.Cookie)
+	cookie.Name = "token"
+	cookie.Value = token
+	cookie.Path = "/"
+	cookie.HttpOnly = true
+	cookie.Secure = false // true для https
+	cookie.SameSite = http.SameSiteLaxMode
+	c.SetCookie(cookie)
+
+	return c.JSON(http.StatusOK, map[string]string{
+		"message": "Yandex OAuth успешен",
+	})
 }
 
 // LoginByGooglePost handlers the "Auth" page post request for Google.

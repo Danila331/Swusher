@@ -29,7 +29,8 @@ type User struct {
 type UserInterface interface {
 	Create(ctx context.Context, pool *pgxpool.Pool) error
 	Update(ctx context.Context, pool *pgxpool.Pool) error
-	ReadByID(ctx context.Context, pool *pgxpool.Pool) (*User, error)
+	ReadByID(ctx context.Context, pool *pgxpool.Pool) error
+	ReadByEmail(ctx context.Context, pool *pgxpool.Pool) error
 	ReadAll(ctx context.Context, pool *pgxpool.Pool, limit, offset int) ([]User, error)
 	Delete(ctx context.Context, pool *pgxpool.Pool) error
 }
@@ -76,18 +77,31 @@ func (u *User) Update(ctx context.Context, pool *pgxpool.Pool) error {
 }
 
 // ReadByID retrieves a user by ID from the database.
-func (u *User) ReadByID(ctx context.Context, pool *pgxpool.Pool) (*User, error) {
+func (u *User) ReadByID(ctx context.Context, pool *pgxpool.Pool) error {
 	// Implement the logic to read a user by ID from the database
 	// This is just a placeholder implementation
-	var user User
 	query := `SELECT id, nickname, name, last_name, fatherland, photo_path, email, phone, password, role FROM sharehub_users WHERE id = $1;`
 
 	err := pool.QueryRow(ctx, query, u.ID).Scan(&u.ID, &u.Nickname, &u.Name, &u.LastName, &u.Fatherland, &u.PhotoPath, &u.Email, &u.Phone, &u.Password, &u.Role)
 	if err != nil {
-		return &User{}, err
+		return err
 	}
 
-	return &user, nil
+	return nil
+}
+
+// ReadByEmail retrieves a user by email from the database.
+func (u *User) ReadByEmail(ctx context.Context, pool *pgxpool.Pool) error {
+	// Implement the logic to read a user by email from the database
+	// This is just a placeholder implementation
+	query := `SELECT id, nickname, name, last_name, fatherland, photo_path, email, phone, password, role FROM sharehub_users WHERE email = $1;`
+
+	err := pool.QueryRow(ctx, query, u.Email).Scan(&u.ID, &u.Nickname, &u.Name, &u.LastName, &u.Fatherland, &u.PhotoPath, &u.Email, &u.Phone, &u.Password, &u.Role)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // ReadAll retrieves all users from the database with pagination.
