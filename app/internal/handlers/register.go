@@ -8,6 +8,7 @@ import (
 
 	"github.com/Danila331/ShareHub/internal/models/users"
 	"github.com/Danila331/ShareHub/pkg/hash"
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
@@ -55,6 +56,10 @@ func RegisterPost(c echo.Context) error {
 	user.IsVerified = false
 	user.PhotoPath = "default.png"
 
+	if user.Nickname == "" {
+		user.Nickname = fmt.Sprintf("%s_%s_%s", user.Name, user.LastName, uuid.New().String()[:8])
+	}
+
 	err = user.Create(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
 	if err != nil {
 		if strings.Contains(err.Error(), "уже существует") {
@@ -98,6 +103,34 @@ func RegisterByYandexPost(c echo.Context) error {
 	var yandexUser map[string]interface{}
 	if err := json.NewDecoder(resp.Body).Decode(&yandexUser); err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Ошибка декодирования ответа Яндекса"})
+	}
+
+	var user users.User
+	user.Email, _ = yandexUser["default_email"].(string)
+	if user.Email == "" {
+		return c.JSON(http.StatusBadRequest, map[string]string{"message": "Не удалось получить email пользователя от Яндекса"})
+	}
+
+	// Добавляем пользователя в базу данных
+	user.Name, _ = yandexUser["first_name"].(string)
+	user.LastName, _ = yandexUser["last_name"].(string)
+	user.Phone = ""    // Яндекс не предоставляет номер телефона
+	user.Password = "" // Пароль не нужен, т.к. вход через OAuth
+	user.Role = "user"
+	user.IsVerified = false
+	user.PhotoPath = "default.png"
+
+	if user.Nickname == "" {
+		user.Nickname = fmt.Sprintf("%s_%s_%s", user.Name, user.LastName, uuid.New().String()[:8])
+	}
+
+	err = user.Create(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
+	if err != nil {
+		if strings.Contains(err.Error(), "уже существует") {
+			return c.JSON(http.StatusConflict, map[string]string{"message": "Пользователь с таким email уже существует"})
+		}
+		c.Get("logger").(*zap.Logger).Error("failed to create user", zap.Error(err))
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Ошибка создания пользователя"})
 	}
 
 	fmt.Printf("Yandex user info: %+v\n", yandexUser)

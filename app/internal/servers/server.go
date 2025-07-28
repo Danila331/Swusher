@@ -42,13 +42,13 @@ func StartServer(logger *zap.Logger, pool *pgxpool.Pool) {
 	register.POST("/", handlers.RegisterPost)
 	register.POST("/yandex", handlers.RegisterByYandexPost)
 
-	// Login group
+	// Login группа
 	login := app.Group("/login")
 	login.GET("/", handlers.LoginPage)
 	login.POST("/", handlers.LoginPost)
 	login.POST("/yandex", handlers.LoginByYandexPost)
 	login.POST("/google", handlers.LoginByGooglePost)
 
-	// Start server on host
+	// Запуск сервера на хосте
 	app.Logger.Fatal(app.Start(":8080"))
 }

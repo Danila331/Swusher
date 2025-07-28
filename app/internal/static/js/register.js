@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Обработчик входа через Яндекс
 async function handleYandexLogin() {
     const clientId = '7326f484a76e4cc58292b13494195c18'; // Замените на ваш ID приложения Яндекс
-    const redirectUri = 'http://localhost:8080/login/';
+    const redirectUri = 'http://localhost:8080/register/';
     const responseType = 'token';
     
     const yandexAuthUrl = `https://oauth.yandex.ru/authorize?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}`;
@@ -150,7 +150,7 @@ async function handleYandexLogin() {
 
 // Обработка ответа от Яндекс OAuth
 window.addEventListener('load', async function() {
-    if (window.location.pathname !== '/login/') return;
+    if (window.location.pathname !== '/register/') return;
     const hash = window.location.hash;
     if (hash) {
         const params = new URLSearchParams(hash.substring(1));

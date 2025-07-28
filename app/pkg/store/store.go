@@ -85,7 +85,7 @@ func CreateTables(ctx context.Context, pool *pgxpool.Pool) error {
 	_, err := pool.Exec(ctx, `
 		CREATE TABLE IF NOT EXISTS sharehub_users (
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-		nickname    VARCHAR(50) UNIQUE DEFAULT gen_random_uuid()::text,
+		nickname    VARCHAR(50) UNIQUE DEFAULT NULL,
 		name        VARCHAR(100),
 		last_name   VARCHAR(100),
 		fatherland  VARCHAR(100),
