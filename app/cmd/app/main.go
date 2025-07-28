@@ -13,19 +13,21 @@ import (
 )
 
 func main() {
-	// Initialize the logger
+	// Инициализация логгера
+	// Используем zap для логирования
+	// В данном случае используется development конфигурация для удобства отладки
 	logger, err := zap.NewDevelopment()
 	if err != nil {
 		logger.Fatal("failed to create logger", zap.Error(err))
 	}
-	defer logger.Sync() // flushes buffer, if any
+	defer logger.Sync()
 
-	// load env variables
+	// Загрузка переменных окружения из файла .env
 	err = godotenv.Load("./.env")
 	if err != nil {
 		logger.Fatal("failed to load env variables", zap.Error(err))
 	}
-	// Initialize the database connection
+	// Инициализация соединения с базой данных
 	port, _ := strconv.Atoi(os.Getenv("POSTGRESQL_PORT"))
 	dbConfig := store.NewDBConfig(os.Getenv("POSTGRESQL_HOST"),
 		port,
@@ -40,19 +42,20 @@ func main() {
 		30*time.Minute,
 	)
 
-	// Create a new pgx pool
+	// Создание пула соединений с базой данных
+	// Используем NexPgxPool для создания пула соединений
 	pool, err := store.NexPgxPool(context.Background(), dbConfig)
 	if err != nil {
 		logger.Fatal("failed to create pgx pool", zap.Error(err))
 	}
 	defer pool.Close()
 
-	// Create Tables if not exist
+	// Создание таблиц, если они не существуют
 	err = store.CreateTables(context.Background(), pool)
 	if err != nil {
 		logger.Fatal("failed to create tables", zap.Error(err))
 	}
 
-	// Start the server
+	// Запуск бекенд сервера
 	servers.StartServer(logger, pool)
 }

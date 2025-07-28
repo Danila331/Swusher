@@ -2,8 +2,8 @@ package handlers
 
 import "github.com/labstack/echo/v4"
 
-// ContactsPage handles the "Contacts" page request.
+// ContactsPage handles the request for the "Contacts" page.
 func ContactsPage(c echo.Context) error {
-	// Render the "Contacts" page
+	// Отправка HTML файла страницы "Контакты"
 	return c.File("./internal/templates/contacts.html")
 }

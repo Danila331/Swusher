@@ -6,7 +6,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// Chat struct represents a chat in the system.
+// Chat представляет собой структуру чата в системе.
 type Chat struct {
 	ID         string `json:"id" db:"id"`
 	UserFromID string `json:"user_from_id" db:"user_from_id"`
@@ -14,7 +14,7 @@ type Chat struct {
 	CreatedAt  string `json:"created_at" db:"created_at"`
 }
 
-// ChatInterface defines the methods that a chat model should implement.
+// ChatInterface определяет методы, которые должен реализовать модель чата.
 type ChatInterface interface {
 	Create(ctx context.Context, pool *pgxpool.Pool) error
 	Update(ctx context.Context, pool *pgxpool.Pool) error
@@ -23,11 +23,8 @@ type ChatInterface interface {
 	Delete(ctx context.Context, pool *pgxpool.Pool) error
 }
 
-// Create creates a new chat in the database.
+// Create создает новый чат в базе данных.
 func (c *Chat) Create(ctx context.Context, pool *pgxpool.Pool) error {
-	// Implement the logic to create a new chat in the database
-	// This is just a placeholder implementation
-
 	query := `INSERT INTO chats (user_from_id, user_to_id, created_at)
 		VALUES ($1, $2, $3) RETURNING id;`
 
@@ -39,11 +36,8 @@ func (c *Chat) Create(ctx context.Context, pool *pgxpool.Pool) error {
 	return nil
 }
 
-// Update updates an existing chat in the database.
+// Update обновляет существующий чат в базе данных.
 func (c *Chat) Update(ctx context.Context, pool *pgxpool.Pool) error {
-	// Implement the logic to update an existing chat in the database
-	// This is just a placeholder implementation
-
 	query := `UPDATE chats SET user_from_id = $1, user_to_id = $2, created_at = $3 WHERE id = $4;`
 
 	_, err := pool.Exec(ctx, query, c.UserFromID, c.UserToID, c.CreatedAt, c.ID)
@@ -54,11 +48,8 @@ func (c *Chat) Update(ctx context.Context, pool *pgxpool.Pool) error {
 	return nil
 }
 
-// ReadByID retrieves a chat by its ID from the database.
+// ReadByID предоставляет чат по ID из базы данных.
 func (c *Chat) ReadByID(ctx context.Context, pool *pgxpool.Pool) (*Chat, error) {
-	// Implement the logic to read a chat by its ID from the database
-	// This is just a placeholder implementation
-
 	query := `SELECT id, user_from_id, user_to_id, created_at FROM chats WHERE id = $1;`
 
 	err := pool.QueryRow(ctx, query, c.ID).Scan(&c.ID, &c.UserFromID, &c.UserToID, &c.CreatedAt)
@@ -69,11 +60,8 @@ func (c *Chat) ReadByID(ctx context.Context, pool *pgxpool.Pool) (*Chat, error) 
 	return c, nil
 }
 
-// ReadAll retrieves all chats from the database with pagination.
+// ReadAll предоставляет все чаты из базы данных с пагинацией.
 func (c *Chat) ReadAll(ctx context.Context, pool *pgxpool.Pool, limit, offset int) ([]Chat, error) {
-	// Implement the logic to read all chats from the database with pagination
-	// This is just a placeholder implementation
-
 	query := `SELECT id, user_from_id, user_to_id, created_at FROM chats LIMIT $1 OFFSET $2;`
 
 	rows, err := pool.Query(ctx, query, limit, offset)
@@ -94,11 +82,8 @@ func (c *Chat) ReadAll(ctx context.Context, pool *pgxpool.Pool, limit, offset in
 	return chats, nil
 }
 
-// Delete removes a chat from the database.
+// Delete удаляет чат из базы данных.
 func (c *Chat) Delete(ctx context.Context, pool *pgxpool.Pool) error {
-	// Implement the logic to delete a chat from the database
-	// This is just a placeholder implementation
-
 	query := `DELETE FROM chats WHERE id = $1;`
 
 	_, err := pool.Exec(ctx, query, c.ID)

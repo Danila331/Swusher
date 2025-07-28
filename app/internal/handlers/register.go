@@ -13,7 +13,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// RegisterRequest represents the structure of the registration form.
+// RegisterRequest структура запроса для регистрации.
 type RegisterRequest struct {
 	Name     string `json:"name" form:"name"`
 	LastName string `json:"lastname" form:"lastname"`
@@ -24,11 +24,11 @@ type RegisterRequest struct {
 
 // RegisterPage handles the "Register" page request.
 func RegisterPage(c echo.Context) error {
-	// Render the "Register" page
+	// Отправка HTML файла страницы "Регистрация"
 	return c.File("./internal/templates/register.html")
 }
 
-// RegisterPost handles the form submission for the "Register" post reauest.
+// RegisterPost handles the form submission for the "Register" post request.
 func RegisterPost(c echo.Context) error {
 	var req RegisterRequest
 	if err := c.Bind(&req); err != nil {
@@ -43,6 +43,8 @@ func RegisterPost(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to hash password"})
 	}
 
+	// Создаем нового пользователя
+	// Если пользователь с таким email уже существует, возвращаем ошибку
 	var user users.User
 	user.Name = req.Name
 	user.LastName = req.LastName

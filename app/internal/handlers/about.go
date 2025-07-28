@@ -2,8 +2,8 @@ package handlers
 
 import "github.com/labstack/echo/v4"
 
-// AboutPage handles the "About" page request.
+// AboutPage handles the request for the "About" page
 func AboutPage(c echo.Context) error {
-	// Render the "About" page
+	// Отправка HTML файла о странице "О нас"
 	return c.File("./internal/templates/about.html")
 }

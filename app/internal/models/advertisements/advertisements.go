@@ -6,7 +6,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// Advertisement struct represents an advertisement in the system.
+// Advertisement структура для представления объявления.
 type Advertisement struct {
 	ID            string   `json:"id" db:"id"`
 	UserID        string   `json:"user_id" db:"user_id"`
@@ -22,7 +22,7 @@ type Advertisement struct {
 	Geolocation_Y float64  `json:"geolocation_y" db:"geolocation_y"`
 }
 
-// AdvertisementInterface defines the methods that a advertisement model should implement.
+// AdvertisementInterface интерфейс для работы с объявлениями.
 type AdvertisementInterface interface {
 	Create(ctx context.Context, pool *pgxpool.Pool) error
 	Update(ctx context.Context, pool *pgxpool.Pool) error
@@ -31,11 +31,8 @@ type AdvertisementInterface interface {
 	Delete(ctx context.Context, pool *pgxpool.Pool) error
 }
 
-// Create creates a new advertisement in the database.
+// Create создает новое объявление в базе данных.
 func (a *Advertisement) Create(ctx context.Context, pool *pgxpool.Pool) error {
-	// Implement the logic to create a new advertisement in the database
-	// This is just a placeholder implementation
-
 	query := `INSERT INTO advertisements (user_id, title, description, rental_rules, cost_per_day, cost_per_week, cost_per_month, photo_paths, category, geolocation_x, geolocation_y)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id;`
 
@@ -54,10 +51,9 @@ func (a *Advertisement) Create(ctx context.Context, pool *pgxpool.Pool) error {
 	return nil
 }
 
-// Update updates an existing advertisement in the database.
+// Update обновляет существующее объявление в базе данных.
 func (a *Advertisement) Update(ctx context.Context, pool *pgxpool.Pool) error {
 	// Implement the logic to update an existing advertisement in the database
-	// This is just a placeholder implementation
 
 	query := `UPDATE advertisements SET user_id = $1, title = $2, description = $3, rental_rules = $4, cost_per_day = $5, cost_per_week = $6, cost_per_month = $7, photo_paths = $8, category = $9, geolocation_x = $10, geolocation_y = $11 WHERE id = $12;`
 
@@ -77,10 +73,8 @@ func (a *Advertisement) Update(ctx context.Context, pool *pgxpool.Pool) error {
 	return nil
 }
 
-// ReadByID retrieves an advertisement by its ID from the database.
+// ReadByID предоставляет объявление по ID из базы данных.
 func (a *Advertisement) ReadByID(ctx context.Context, pool *pgxpool.Pool) (*Advertisement, error) {
-	// Implement the logic to retrieve an advertisement by its ID from the database
-	// This is just a placeholder implementation
 	var advertisement Advertisement
 	query := `SELECT user_id, title, description, rental_rules, cost_per_day, cost_per_week, cost_per_month, photo_paths, category, geolocation_x, geolocation_y FROM advertisements WHERE id = $1;`
 
@@ -102,10 +96,8 @@ func (a *Advertisement) ReadByID(ctx context.Context, pool *pgxpool.Pool) (*Adve
 	return &advertisement, nil
 }
 
-// ReadAll retrieves all advertisements from the database with pagination.
+// ReadAll предоставляет все объявления из базы данных с пагинацией.
 func (a *Advertisement) ReadAll(ctx context.Context, pool *pgxpool.Pool, limit, offset int) ([]Advertisement, error) {
-	// Implement the logic to retrieve all advertisements from the database with pagination
-	// This is just a placeholder implementation
 	var advertisements []Advertisement
 	query := `SELECT id, user_id, title, description, rental_rules, cost_per_day, cost_per_week, cost_per_month, photo_paths, category, geolocation_x, geolocation_y FROM advertisements LIMIT $1 OFFSET $2;`
 
@@ -138,11 +130,8 @@ func (a *Advertisement) ReadAll(ctx context.Context, pool *pgxpool.Pool, limit, 
 	return advertisements, nil
 }
 
-// Delete deletes an advertisement from the database.
+// Delete удаляет объявление из базы данных.
 func (a *Advertisement) Delete(ctx context.Context, pool *pgxpool.Pool) error {
-	// Implement the logic to delete an advertisement from the database
-	// This is just a placeholder implementation
-
 	query := `DELETE FROM advertisements WHERE id = $1;`
 
 	_, err := pool.Exec(ctx, query, a.ID)

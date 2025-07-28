@@ -6,7 +6,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// Mesage struct represents a message in the system.
+// Mesage структура представляет собой сообщение в чате.
 type Message struct {
 	ID        string `json:"id" db:"id"`
 	ChatID    string `json:"chat_id" db:"chat_id"`
@@ -15,7 +15,7 @@ type Message struct {
 	CreatedAt string `json:"created_at" db:"created_at"`
 }
 
-// MessageInterface defines the methods that a message model should implement.
+// MessageInterface определяет методы, которые должен реализовать модель сообщения.
 type MessageInterface interface {
 	Create(ctx context.Context, pool *pgxpool.Pool) error
 	Update(ctx context.Context, pool *pgxpool.Pool) error
@@ -24,11 +24,8 @@ type MessageInterface interface {
 	Delete(ctx context.Context, pool *pgxpool.Pool) error
 }
 
-// Create creates a new message in the database.
+// Create создает новое сообщение в базе данных.
 func (m *Message) Create(ctx context.Context, pool *pgxpool.Pool) error {
-	// Implement the logic to create a new message in the database
-	// This is just a placeholder implementation
-
 	query := `INSERT INTO messages (chat_id, user_id, text, created_at)
 		VALUES ($1, $2, $3, $4) RETURNING id;`
 
@@ -40,11 +37,8 @@ func (m *Message) Create(ctx context.Context, pool *pgxpool.Pool) error {
 	return nil
 }
 
-// Update updates an existing message in the database.
+// Update обновляет существующее сообщение в базе данных.
 func (m *Message) Update(ctx context.Context, pool *pgxpool.Pool) error {
-	// Implement the logic to update an existing message in the database
-	// This is just a placeholder implementation
-
 	query := `UPDATE messages SET chat_id = $1, user_id = $2, text = $3, created_at = $4 WHERE id = $5;`
 
 	_, err := pool.Exec(ctx, query, m.ChatID, m.UserID, m.Text, m.CreatedAt, m.ID)
@@ -55,11 +49,8 @@ func (m *Message) Update(ctx context.Context, pool *pgxpool.Pool) error {
 	return nil
 }
 
-// ReadByID retrieves a message by its ID from the database.
+// ReadByID предоставляет сообщение по ID из базы данных.
 func (m *Message) ReadByID(ctx context.Context, pool *pgxpool.Pool) (*Message, error) {
-	// Implement the logic to read a message by its ID from the database
-	// This is just a placeholder implementation
-
 	query := `SELECT chat_id, user_id, text, created_at FROM messages WHERE id = $1;`
 
 	err := pool.QueryRow(ctx, query, m.ID).Scan(&m.ChatID, &m.UserID, &m.Text, &m.CreatedAt)
@@ -70,11 +61,8 @@ func (m *Message) ReadByID(ctx context.Context, pool *pgxpool.Pool) (*Message, e
 	return m, nil
 }
 
-// ReadAll retrieves all messages from the database with pagination.
+// ReadAll предоставляет все сообщения из базы данных с пагинацией.
 func (m *Message) ReadAll(ctx context.Context, pool *pgxpool.Pool, limit, offset int) ([]Message, error) {
-	// Implement the logic to read all messages from the database with pagination
-	// This is just a placeholder implementation
-
 	query := `SELECT chat_id, user_id, text, created_at FROM messages LIMIT $1 OFFSET $2;`
 
 	rows, err := pool.Query(ctx, query, limit, offset)
@@ -95,11 +83,8 @@ func (m *Message) ReadAll(ctx context.Context, pool *pgxpool.Pool, limit, offset
 	return messages, nil
 }
 
-// Delete removes a message from the database.
+// Delete удаляет сообщение из базы данных.
 func (m *Message) Delete(ctx context.Context, pool *pgxpool.Pool) error {
-	// Implement the logic to delete a message from the database
-	// This is just a placeholder implementation
-
 	query := `DELETE FROM messages WHERE id = $1;`
 
 	_, err := pool.Exec(ctx, query, m.ID)

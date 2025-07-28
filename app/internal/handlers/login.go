@@ -12,29 +12,29 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// LoginRequest represents the structure of the login form.
+// LoginRequest структура запроса для логина.
 type LoginRequest struct {
 	Email    string `json:"email" form:"email"`
 	Password string `json:"password" form:"password"`
 }
 
-// YandexLoginRequest represents the structure of the Yandex login request.
+// YandexLoginRequest структура запроса для логина через Яндекс.
 type YandexLoginRequest struct {
 	AccessToken string `json:"access_token"`
 }
 
-// GoogleLoginRequest represents the structure of the Google login request.
+// GoogleLoginRequest структура запроса для логина через Google.
 type GoogleLoginRequest struct {
 	Credential string `json:"credential"`
 }
 
-// AuthPage handlers the "Auth" page request.
+// LoginPage handles the request for the "Auth" page.
 func LoginPage(c echo.Context) error {
-	// Render the "Auth" page
+	// Отправка HTML файла страницы "Авторизация"
 	return c.File("./internal/templates/login.html")
 }
 
-// LoginPost handlers the "Auth" page post request.
+// LoginPost handles the "Auth" page post request.
 func LoginPost(c echo.Context) error {
 	var loginRequest LoginRequest
 	if err := c.Bind(&loginRequest); err != nil {
@@ -42,11 +42,13 @@ func LoginPost(c echo.Context) error {
 			"error": "Invalid request",
 		})
 	}
-	fmt.Println("Login attempt for user:", loginRequest.Email, loginRequest.Password)
+
 	user := users.User{
 		Email: loginRequest.Email,
 	}
 
+	// Проверяем, существует ли пользователь с таким email
+	// Если нет, возвращаем ошибку
 	err := user.ReadByEmail(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
 	fmt.Println("Login attempt for user:", user.Email, user.Password)
 	if err != nil || !hash.CheckPasswordHash(loginRequest.Password, user.Password) {
@@ -80,7 +82,7 @@ func LoginByYandexPost(c echo.Context) error {
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"message": "Некорректные данные"})
 	}
-	fmt.Printf("Yandex OAuth: %+v\n", req)
+
 	// Запрос к Яндекс API для получения информации о пользователе
 	client := &http.Client{}
 	apiReq, err := http.NewRequest("GET", "https://login.yandex.ru/info", nil)
@@ -116,6 +118,7 @@ func LoginByYandexPost(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusNotFound, map[string]string{"message": "Пользователь не найден"})
 	}
+
 	// Генерируем JWT токен
 	token, err := jwt.GenerateToken(user.ID)
 	if err != nil {
@@ -143,8 +146,7 @@ func LoginByGooglePost(c echo.Context) error {
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"message": "Некорректные данные"})
 	}
-	fmt.Printf("Google OAuth: %+v\n", req)
-	// Здесь можно добавить валидацию credential через Google API, если нужно
+
 	return c.JSON(http.StatusOK, map[string]string{
 		"message":    "Google OAuth успешен",
 		"credential": req.Credential,
