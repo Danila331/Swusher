@@ -106,7 +106,7 @@ func CreateTables(ctx context.Context, pool *pgxpool.Pool) error {
 	// Create the passports table
 	_, err = pool.Exec(ctx, `
 	CREATE TABLE IF NOT EXISTS sharehub_passports (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES sharehub_users(id) ON DELETE CASCADE,
     photo_path_with_author    TEXT,
     photo_path_without_author TEXT,
@@ -122,7 +122,7 @@ func CreateTables(ctx context.Context, pool *pgxpool.Pool) error {
 	// Create the advertisements table
 	_, err = pool.Exec(ctx, `
 	CREATE TABLE IF NOT EXISTS sharehub_advertisements (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES sharehub_users(id) ON DELETE CASCADE,
     title           VARCHAR(255) NOT NULL,
     description     TEXT,
@@ -132,7 +132,8 @@ func CreateTables(ctx context.Context, pool *pgxpool.Pool) error {
     cost_per_month  DOUBLE PRECISION NOT NULL DEFAULT 0,
     photo_paths     TEXT[] NOT NULL DEFAULT '{}',
     category        VARCHAR(100),
-    geolocation_x   DOUBLE PRECISION,
+    address         TEXT,
+	geolocation_x   DOUBLE PRECISION,
     geolocation_y   DOUBLE PRECISION
 );`)
 
@@ -143,7 +144,7 @@ func CreateTables(ctx context.Context, pool *pgxpool.Pool) error {
 	// Create the chats table
 	_, err = pool.Exec(ctx, `
 		CREATE TABLE IF NOT EXISTS sharehub_chats (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_from_id UUID NOT NULL REFERENCES sharehub_users(id) ON DELETE CASCADE,
     user_to_id   UUID NOT NULL REFERENCES sharehub_users(id) ON DELETE CASCADE,
     created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -156,7 +157,7 @@ func CreateTables(ctx context.Context, pool *pgxpool.Pool) error {
 	// Create the messages table
 	_, err = pool.Exec(ctx, `
 	CREATE TABLE IF NOT EXISTS sharehub_messages (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     chat_id UUID NOT NULL REFERENCES sharehub_chats(id) ON DELETE CASCADE,
     user_id UUID NOT NULL REFERENCES sharehub_users(id) ON DELETE CASCADE,
     text TEXT NOT NULL,
@@ -169,7 +170,7 @@ func CreateTables(ctx context.Context, pool *pgxpool.Pool) error {
 	// Create the reviews table
 	_, err = pool.Exec(ctx, `
 	CREATE TABLE IF NOT EXISTS sharehub_reviews (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     advertisement_id UUID NOT NULL REFERENCES sharehub_advertisements(id) ON DELETE CASCADE,
     user_from_id UUID NOT NULL REFERENCES sharehub_users(id) ON DELETE CASCADE,
     score NUMERIC(2,1) CHECK (score >= 0 AND score <= 5) NOT NULL,

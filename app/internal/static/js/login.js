@@ -67,7 +67,7 @@ document.querySelector('.auth-form').addEventListener('submit', async (e) => {
         sessionStorage.setItem('currentUser', JSON.stringify(data));
 
         // Redirect to profile page
-        window.location.href = '/profile';
+        window.location.href = '/profile-saler/';
     } catch (error) {
         alert(error.message);
     }
@@ -145,7 +145,7 @@ window.addEventListener('load', async function() {
 
                 const userData = await response.json();
                 sessionStorage.setItem('currentUser', JSON.stringify(userData));
-                window.location.href = '/profile';
+                window.location.href = '/profile-saler/';
             } catch (error) {
                 alert(error.message);
             }

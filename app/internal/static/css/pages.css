@@ -1637,6 +1637,12 @@
     gap: 1.5rem;
 }
 
+@media (max-width: 768px) {
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .item-card {
     background: var(--light-bg);
     border-radius: 12px;

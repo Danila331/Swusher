@@ -93,7 +93,7 @@ document.querySelector('.auth-form').addEventListener('submit', async (e) => {
         }
 
         sessionStorage.setItem('currentUser', JSON.stringify(data));
-        window.location.href = '/profile';
+        window.location.href = '/profile-saler/';
     } catch (error) {
         // Ошибка сети или fetch
         alert('Ошибка соединения с сервером. Проверьте интернет или попробуйте позже.');
@@ -173,7 +173,7 @@ window.addEventListener('load', async function() {
 
                 const userData = await response.json();
                 sessionStorage.setItem('currentUser', JSON.stringify(userData));
-                window.location.href = '/profile';
+                window.location.href = '/profile-saler/';
             } catch (error) {
                 alert(error.message);
             }

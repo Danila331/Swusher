@@ -50,7 +50,7 @@ function loadFeaturedItems() {
         {
             id: 1,
             title: 'Sony A7III',
-            image: 'images/camera.jpg',
+            image: 'https://technovybor.ru/wa-data/public/shop/img/sony-a7-iv-01-pa191048-acr-820x547.jpg',
             price: '1500 ₽/день',
             location: 'Москва',
             rating: 4.8,
@@ -59,7 +59,7 @@ function loadFeaturedItems() {
         {
             id: 2,
             title: 'DJI Mavic Pro',
-            image: 'images/drone.jpg',
+            image: 'https://ekipirovka.expert/upload/iblock/d06/nhcjnvsfp31hlnn7c14lfbyxv7upq61s.png',
             price: '2000 ₽/день',
             location: 'Санкт-Петербург',
             rating: 4.9,
@@ -68,7 +68,7 @@ function loadFeaturedItems() {
         {
             id: 3,
             title: 'MacBook Pro M1',
-            image: 'images/laptop.jpg',
+            image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80',
             price: '1000 ₽/день',
             location: 'Москва',
             rating: 4.7,

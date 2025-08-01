@@ -8,6 +8,7 @@ import (
 
 	"github.com/Danila331/ShareHub/internal/models/users"
 	"github.com/Danila331/ShareHub/pkg/hash"
+	"github.com/Danila331/ShareHub/pkg/jwt"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
@@ -68,6 +69,22 @@ func RegisterPost(c echo.Context) error {
 		c.Get("logger").(*zap.Logger).Error("failed to create user", zap.Error(err))
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to create user"})
 	}
+
+	// Генерируем JWT токен
+	token, err := jwt.GenerateToken(user.ID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Ошибка генерации токена"})
+	}
+
+	// Кладём токен в httpOnly cookie
+	cookie := new(http.Cookie)
+	cookie.Name = "token"
+	cookie.Value = token
+	cookie.Path = "/"
+	cookie.HttpOnly = true
+	cookie.Secure = false // true для https
+	cookie.SameSite = http.SameSiteLaxMode
+	c.SetCookie(cookie)
 
 	c.Get("logger").(*zap.Logger).Info("user registered", zap.String("email", user.Email))
 	return c.JSON(http.StatusCreated, map[string]string{"message": "User registered successfully"})
@@ -133,6 +150,22 @@ func RegisterByYandexPost(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Ошибка создания пользователя"})
 	}
 
-	fmt.Printf("Yandex user info: %+v\n", yandexUser)
+	// Генерируем JWT токен
+	token, err := jwt.GenerateToken(user.ID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Ошибка генерации токена"})
+	}
+
+	// Кладём токен в httpOnly cookie
+	cookie := new(http.Cookie)
+	cookie.Name = "token"
+	cookie.Value = token
+	cookie.Path = "/"
+	cookie.HttpOnly = true
+	cookie.Secure = false // true для https
+	cookie.SameSite = http.SameSiteLaxMode
+	c.SetCookie(cookie)
+
+	c.Get("logger").(*zap.Logger).Info("user registered via Yandex OAuth", zap.String("email", user.Email))
 	return c.JSON(http.StatusOK, yandexUser)
 }

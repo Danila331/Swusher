@@ -12,12 +12,12 @@ func JWTMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cookie, err := c.Cookie("token")
 		if err != nil || cookie.Value == "" {
-			return c.Redirect(http.StatusSeeOther, "/login")
+			return c.Redirect(http.StatusSeeOther, "/login/")
 		}
 
 		userID, err := jwt.ParseToken(cookie.Value)
 		if err != nil {
-			return c.Redirect(http.StatusSeeOther, "/login")
+			return c.Redirect(http.StatusSeeOther, "/login/")
 		}
 
 		c.Set("user_id", userID)

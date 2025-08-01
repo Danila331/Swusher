@@ -1,11 +1,12 @@
+{{ define "settings" }}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Отзывы - Swusher</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -22,8 +23,8 @@
                 <a href="/contacts">Контакты</a>
             </div>
             <div class="auth-buttons">
-                <a href="/login/" class="btn btn-outline">Войти</a>
-                <a href="/register/" class="btn btn-primary">Регистрация</a>
+                <a href="/profile-saler/" class="btn btn-outline">Мой профиль</a>
+                <a href="/logout/" class="btn btn-primary">Выйти</a>
             </div>
             <div class="mobile-menu-btn">
                 <span class="burger-line"></span>
@@ -40,8 +41,8 @@
                     <a href="/contacts">Контакты</a>
                 </div>
                 <div class="mobile-auth-buttons">
-                    <a href="/login/" class="btn btn-outline mobile-btn">Войти</a>
-                    <a href="/register/" class="btn btn-primary mobile-btn">Регистрация</a>
+                    <a href="/profile-saler/" class="btn btn-outline mobile-btn">Мой профиль</a>
+                    <a href="/logout/" class="btn btn-primary mobile-btn">Выйти</a>
                 </div>
             </div>
         </div>
@@ -54,30 +55,30 @@
                 <aside class="profile-sidebar">
                     <div class="user-info">
                         <div class="user-avatar">
-                            <img src="images/avatars/owner.jpg" alt="Аватар пользователя">
+                            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Аватар владельца">
                             <button class="avatar-edit">
                                 <i class="fas fa-camera"></i>
                             </button>
                         </div>
-                        <h2>Иван Петров</h2>
-                        <p class="user-email">ivan@example.com</p>
+                        <h2>{{ .Name }} {{ .Surname }}</h2>
+                        <p class="user-email">{{ .Email }}</p>
                         <div class="user-rating">
                             <i class="fas fa-star"></i>
-                            <span>4.8</span>
-                            <span class="reviews-count">(24 отзыва)</span>
+                            <span>{{ .Rating }}</span>
+                            <span class="reviews-count">({{ .ReviewsCount }} отзыва)</span>
                         </div>
                         <div class="user-verification">
                             <i class="fas fa-check-circle"></i>
-                            <span>Верифицирован</span>
+                            <span>{{ if .IsVerified }}Верифицирован аккаунт{{ else }}Не верифицирован аккаунт{{ end }}</span>
                         </div>
                     </div>
                     <nav class="profile-nav">
-                        <a href="/active-rentals"><i class="fas fa-clock"></i> Активные аренды</a>
-                        <a href="/my-items"><i class="fas fa-box"></i> Мои вещи</a>
-                        <a href="rental-history.html"><i class="fas fa-history"></i> История аренд</a>
-                        <a href="reviews.html"><i class="fas fa-star"></i> Отзывы</a>
-                        <a href="earnings.html"><i class="fas fa-wallet"></i> Заработок</a>
-                        <a href="settings.html" class="active"><i class="fas fa-cog"></i> Настройки</a>
+                        <a href="/profile-saler/"><i class="fas fa-clock"></i> Активные аренды</a>
+                        <a href="/profile-saler/items"><i class="fas fa-box"></i> Мои вещи</a>
+                        <a href="/profile-saler/rental-history"><i class="fas fa-history"></i> История аренд</a>
+                        <a href="/profile-saler/reviews"><i class="fas fa-star"></i> Отзывы</a>
+                        <a href="/profile-saler/earnings"><i class="fas fa-wallet"></i> Заработок</a>
+                        <a href="/profile-saler/settings" class="active"><i class="fas fa-cog"></i> Настройки</a>
                     </nav>
                 </aside>
 
@@ -89,7 +90,7 @@
                     <div class="settings-main-card">
                         <div class="settings-profile">
                             <div class="settings-avatar">
-                                <img src="images/avatars/owner.jpg" alt="Аватар">
+                                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Аватар владельца">
                                 <button class="avatar-edit" title="Сменить аватар"><i class="fas fa-camera"></i></button>
                             </div>
                             <div>
@@ -144,7 +145,7 @@
 <!-- Footer -->
 <footer class="footer stylish-footer">
     <div class="footer-inner">
-        <a href="index.html" class="footer-logo">ShareHub</a>
+        <a href="index.html" class="footer-logo">Swusher</a>
         <div class="footer-socials">
             <a href="#" class="footer-social vk"><i class="fab fa-vk"></i></a>
             <a href="#" class="footer-social tg"><i class="fab fa-telegram"></i></a>
@@ -152,10 +153,11 @@
         </div>
     </div>
     <div class="footer-bottom stylish-footer-bottom">
-        <p>&copy; 2024 ShareHub. Все права защищены.</p>
+        <p>&copy; 2025 Swusher. Все права защищены.</p>
     </div>
 </footer>
 
-<script src="js/profile.js"></script>
+<script src="/js/profile.js"></script>
 </body>
-</html> 
+</html>
+{{ end }}
