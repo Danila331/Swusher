@@ -26,7 +26,7 @@
 | Язык | Go 1.22 / Python 3.11 (ML-сервисы) |
 | API | gRPC / REST (OpenAPI 3) |
 | Хранение | PostgreSQL / Redis / S3 |
-| Очереди | Kafka / NATS |
+| Очереди | Kafka |
 | Кеширование | Redis |
 | CI/CD | GitHub Actions + Docker + Kubernetes |
 | Мониторинг | Prometheus + Grafana |
@@ -56,7 +56,7 @@ make dev-up
 
 Платформа поднимается на:
 
-* API: `http://localhost:8080/api`
+* API: `http://localhost:8080/`
 * Swagger: `http://localhost:8080/docs`
 * PGAdmin: `http://localhost:8081`
 * Mailhog: `http://localhost:8025`
@@ -69,10 +69,20 @@ make dev-up
 .
 ├── cmd/                # entrypoints
 ├── internal/
-│   ├── users/
-│   ├── ads/
-│   ├── rents/
-│   └── shared/
+│   ├── handlers/
+│   ├── midlewary/
+│   ├── models/
+|   |   |── advertisements/
+|   |   |── chats/
+|   |   |── passports/
+|   |   |── reviews/
+|   |   |── users/
+│   |── servers/
+|   |── static/
+|   |   |── css/
+|   |   |── js/
+|   |   |── images/
+|   └── templates/         
 ├── pkg/                # переиспользуемые библиотеки
 ├── api/                # OpenAPI / protobuf схемы
 ├── migrations/         # SQL миграции
