@@ -80,9 +80,10 @@ func StartServer(logger *zap.Logger, pool *pgxpool.Pool) {
 
 	// Advertisement группа
 	advertisement := app.Group("/advertisement")
+	advertisement.GET("/:id", handlers.AdvertisementPage, midlewary.JWTMiddleware)
 	advertisement.GET("/add", handlers.AdvertisementAddPage, midlewary.JWTMiddleware)
 	advertisement.POST("/add", handlers.AdvertisementAddPost, midlewary.JWTMiddleware)
 
 	// Запуск сервера на хосте
-	app.Logger.Fatal(app.Start(":8080"))
+	app.Logger.Fatal(app.Start(":8081"))
 }

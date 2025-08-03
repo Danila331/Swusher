@@ -2735,4 +2735,928 @@
     padding: 0.8rem 0;
   }
 }
-/* --- End Settings Modern Redesign --- */ 
+/* --- End Settings Modern Redesign --- */
+
+/* --- Item Detail Page Styles --- */
+.item-detail {
+    padding: 2rem 0;
+    background: var(--white);
+    min-height: calc(100vh - 80px);
+}
+
+.item-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.item-gallery {
+    position: sticky;
+}
+
+.main-image {
+    width: 100%;
+    height: 400px;
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.main-image:hover img {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.main-image:hover .image-overlay {
+    opacity: 1;
+}
+
+.zoom-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.zoom-btn:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.thumbnail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 80px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.thumbnail:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.thumbnail.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.item-info {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.item-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+.item-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: center;
+}
+
+.rating, .location {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.rating i {
+    color: #FFD700;
+}
+
+.location i {
+    color: var(--primary-color);
+}
+
+.price-section {
+    background: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.daily-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.daily-price .price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.period {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.deposit {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+}
+
+.deposit i {
+    color: #4CAF50;
+}
+
+.availability {
+    margin-bottom: 2rem;
+}
+
+.availability h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.calendar-container {
+    background: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+.calendar-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+}
+
+.legend-color.available {
+    background: #4CAF50;
+}
+
+.legend-color.booked {
+    background: #f44336;
+}
+
+.legend-color.selected {
+    background: var(--primary-color);
+}
+
+.booking-form {
+    background: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+.dates-selected {
+    margin-bottom: 1.5rem;
+}
+
+.date-range {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.date-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.date-input-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.date-input-group input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+}
+
+.date-input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.total-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.total-price .price {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.item-description {
+    grid-column: 1 / -1;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
+}
+
+.item-description h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.item-description h3 {
+    font-size: 1.3rem;
+    margin: 2rem 0 1rem 0;
+    color: var(--primary-color);
+}
+
+.item-description p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.specs-list, .rental-terms {
+    list-style: none;
+    padding: 0;
+}
+
+.specs-list li, .rental-terms li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.specs-list li:before, .rental-terms li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.owner-info {
+    grid-column: 1 / -1;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
+}
+
+.owner-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.owner-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--light-gray);
+    border-radius: 1rem;
+}
+
+.owner-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.owner-details {
+    flex: 1;
+}
+
+.owner-details h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.owner-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.owner-rating i {
+    color: #FFD700;
+}
+
+.owner-verification {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4CAF50;
+    font-size: 0.9rem;
+}
+
+.reviews-section {
+    grid-column: 1 / -1;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
+}
+
+.reviews-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.review-card {
+    padding: 1.5rem;
+    background: var(--light-gray);
+    border-radius: 1rem;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.reviewer-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.reviewer-details h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    color: var(--primary-color);
+}
+
+.review-text {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.review-date {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* User menu styles */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Mobile navigation improvements */
+@media (max-width: 768px) {
+    .user-menu {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .user-name {
+        font-size: 0.9rem;
+    }
+    
+    .auth-buttons .btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .mobile-nav-content {
+        padding: 1rem;
+    }
+    
+    .mobile-nav-links {
+        margin-bottom: 1rem;
+    }
+    
+    .mobile-nav-links a {
+        padding: 0.75rem 0;
+        font-size: 1rem;
+    }
+    
+    .mobile-auth-buttons {
+        gap: 0.5rem;
+    }
+    
+    .mobile-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Image Modal Styles */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 0.5rem;
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+.close-modal:hover {
+    opacity: 0.7;
+}
+
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.modal-nav-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.modal-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+/* Calendar Custom Styles */
+.flatpickr-calendar {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: none;
+    font-family: inherit;
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.flatpickr-calendar.open {
+    z-index: 1000;
+}
+
+.flatpickr-day.booked {
+    background: #f44336;
+    color: white;
+    border-color: #f44336;
+}
+
+.flatpickr-day.booked:hover {
+    background: #d32f2f;
+}
+
+.flatpickr-day.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.flatpickr-day.inRange {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+/* Mobile calendar improvements */
+@media (max-width: 768px) {
+    .flatpickr-calendar {
+        font-size: 14px;
+        width: 100% !important;
+        max-width: 100%;
+    }
+    
+    .flatpickr-day {
+        height: 35px;
+        line-height: 35px;
+        font-size: 12px;
+    }
+    
+    .flatpickr-months {
+        font-size: 14px;
+    }
+    
+    .flatpickr-month {
+        height: 40px;
+    }
+    
+    .flatpickr-current-month {
+        font-size: 14px;
+        padding: 8px 0;
+    }
+    
+    .flatpickr-weekdays {
+        height: 30px;
+    }
+    
+    .flatpickr-weekday {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flatpickr-calendar {
+        font-size: 12px;
+    }
+    
+    .flatpickr-day {
+        height: 30px;
+        line-height: 30px;
+        font-size: 11px;
+    }
+    
+    .flatpickr-months {
+        font-size: 12px;
+    }
+    
+    .flatpickr-month {
+        height: 35px;
+    }
+    
+    .flatpickr-current-month {
+        font-size: 12px;
+        padding: 6px 0;
+    }
+    
+    .flatpickr-weekdays {
+        height: 25px;
+    }
+    
+    .flatpickr-weekday {
+        font-size: 11px;
+    }
+}
+
+/* Button Loading State */
+.btn-loading {
+    display: none;
+}
+
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .item-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .item-gallery {
+        position: static;
+    }
+    
+    .main-image {
+        height: 300px;
+    }
+    
+    .thumbnail-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .calendar-legend {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .item-detail {
+        padding: 1rem 0;
+    }
+    
+    .item-container {
+        padding: 0 1rem;
+        gap: 1.5rem;
+        grid-template-columns: 1fr;
+    }
+    
+    .item-info {
+        padding: 1.5rem;
+        order: 2;
+    }
+    
+    .item-gallery {
+        order: 1;
+        position: static;
+    }
+    
+    .item-info h1 {
+        font-size: 1.8rem;
+        line-height: 1.3;
+    }
+    
+    .item-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .main-image {
+        height: 250px;
+    }
+    
+    .thumbnail-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .thumbnail {
+        height: 70px;
+    }
+    
+    .date-range {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .owner-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .item-description,
+    .owner-info,
+    .reviews-section {
+        padding: 1.5rem;
+    }
+    
+    .calendar-legend {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .modal-nav-btn {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+    
+    .price-section {
+        padding: 1rem;
+    }
+    
+    .daily-price .price {
+        font-size: 1.5rem;
+    }
+    
+    .booking-form {
+        padding: 1rem;
+    }
+    
+    .btn-large {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    
+    .item-container {
+        padding: 0 0.5rem;
+        gap: 1rem;
+    }
+    
+    .item-info,
+    .item-description,
+    .owner-info,
+    .reviews-section {
+        padding: 1rem;
+    }
+    
+    .item-info h1 {
+        font-size: 1.6rem;
+        line-height: 1.2;
+    }
+    
+    .daily-price .price {
+        font-size: 1.3rem;
+    }
+    
+    .main-image {
+        height: 200px;
+    }
+    
+    .thumbnail-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.25rem;
+    }
+    
+    .thumbnail {
+        height: 60px;
+    }
+    
+    .calendar-container {
+        padding: 0.75rem;
+    }
+    
+    .booking-form {
+        padding: 0.75rem;
+    }
+    
+    .btn-large {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .modal-content {
+        max-width: 95%;
+        max-height: 95%;
+    }
+    
+    .close-modal {
+        top: -30px;
+        font-size: 1.5rem;
+    }
+    
+    .item-meta {
+        gap: 0.5rem;
+    }
+    
+    .price-section {
+        padding: 0.75rem;
+    }
+    
+    .owner-card {
+        padding: 1rem;
+    }
+    
+    .owner-avatar {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Notification Animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.notification {
+    animation: slideInRight 0.3s ease;
+}
+
+.notification.removing {
+    animation: slideOutRight 0.3s ease;
+}
+
+/* --- End Item Detail Page Styles --- */ 

@@ -50,136 +50,314 @@ const items = [
     }
 ];
 
-// Check authentication on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || 
-                       JSON.parse(sessionStorage.getItem('currentUser'));
+// Item page functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize mobile menu
+    initializeMobileMenu();
     
-    if (currentUser) {
-        authState.isAuthenticated = true;
-        authState.currentUser = currentUser;
-        updateAuthUI();
-    } else {
-        window.location.href = 'auth.html';
-    }
-
-    // Get item ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const itemId = parseInt(urlParams.get('id'));
+    // Initialize image gallery
+    initializeImageGallery();
     
-    // Find and display item
-    const item = items.find(i => i.id === itemId);
-    if (item) {
-        displayItem(item);
-    } else {
-        window.location.href = 'catalog.html';
-    }
+    // Initialize booking form
+    initializeBookingForm();
+    
+    // Initialize date validation
+    initializeDateValidation();
+    
+    // Initialize lazy loading
+    initializeLazyLoading();
+    
+    // Add smooth scrolling for better UX
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
 });
 
-// Update UI based on auth state
-function updateAuthUI() {
-    const authButtons = document.querySelector('.auth-buttons');
-    if (authState.isAuthenticated) {
-        authButtons.innerHTML = `
-            <div class="user-menu">
-                <img src="images/users/${authState.currentUser.id}.jpg" alt="User Avatar" class="user-avatar">
-                <span class="user-name">${authState.currentUser.name}</span>
-                <button class="btn btn-outline" id="logout">Выйти</button>
-            </div>
-        `;
-        
-        document.getElementById('logout').addEventListener('click', () => {
-            localStorage.removeItem('currentUser');
-            sessionStorage.removeItem('currentUser');
-            window.location.href = 'auth.html';
+// Mobile menu functionality
+function initializeMobileMenu() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (mobileMenuBtn && mobileNav) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenuBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+                mobileNav.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            }
         });
     }
 }
 
-// Display item details
-function displayItem(item) {
-    // Update main image and thumbnails
-    document.querySelector('.main-image img').src = item.image;
-    document.querySelector('.main-image img').alt = item.title;
-    
-    // Update item info
-    document.querySelector('.item-info h1').textContent = item.title;
-    document.querySelector('.rating span').textContent = item.rating;
-    document.querySelector('.location span').textContent = item.location;
-    document.querySelector('.daily-price .price').textContent = item.price;
-    document.querySelector('.deposit span').textContent = `Залог: ${item.deposit}`;
-    
-    // Update description
-    document.querySelector('.item-description p').textContent = item.description;
-    
-    // Update specs
-    const specsList = document.querySelector('.specs-list');
-    specsList.innerHTML = item.specs.map(spec => `<li>${spec}</li>`).join('');
-    
-    // Update rental terms
-    const rentalTermsList = document.querySelector('.rental-terms');
-    rentalTermsList.innerHTML = item.rentalTerms.map(term => `<li>${term}</li>`).join('');
-    
-    // Update owner info
-    document.querySelector('.owner-details h3').textContent = item.owner.name;
-    document.querySelector('.owner-rating span').textContent = item.owner.rating;
-    
-    // Update reviews
-    const reviewsList = document.querySelector('.reviews-list');
-    reviewsList.innerHTML = item.reviews.map(review => `
-        <div class="review-card">
-            <div class="reviewer-info">
-                <img src="${review.user.avatar}" alt="${review.user.name}" class="reviewer-avatar">
-                <div class="reviewer-details">
-                    <h4>${review.user.name}</h4>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span>${review.rating}</span>
-                    </div>
-                </div>
-            </div>
-            <p class="review-text">${review.text}</p>
-            <span class="review-date">${review.date}</span>
-        </div>
-    `).join('');
+// Image gallery functionality
+function initializeImageGallery() {
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const mainImage = document.getElementById('mainImage');
+
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+            // Remove active class from all thumbnails
+            thumbnails.forEach(t => t.classList.remove('active'));
+            
+            // Add active class to clicked thumbnail
+            this.classList.add('active');
+            
+            // Update main image
+            if (mainImage) {
+                mainImage.src = this.src;
+                mainImage.alt = this.alt;
+            }
+        });
+    });
+
+    // Set first thumbnail as active by default
+    if (thumbnails.length > 0) {
+        thumbnails[0].classList.add('active');
+    }
 }
 
-// Handle booking form
-document.querySelector('.booking-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const startDate = document.querySelector('.start-date').value;
-    const endDate = document.querySelector('.end-date').value;
-    
-    if (!startDate || !endDate) {
-        alert('Пожалуйста, выберите даты аренды');
-        return;
+// Booking form functionality
+function initializeBookingForm() {
+    const bookingForm = document.getElementById('bookingForm');
+    const startDate = document.getElementById('startDate');
+    const endDate = document.getElementById('endDate');
+    const totalPrice = document.getElementById('totalPrice');
+
+    if (bookingForm && startDate && endDate && totalPrice) {
+        // Get price per day from the page
+        const priceElement = document.querySelector('.daily-price .price');
+        const pricePerDay = priceElement ? parseInt(priceElement.textContent) : 0;
+
+        // Calculate total when dates change
+        function calculateTotal() {
+            if (startDate.value && endDate.value) {
+                const start = new Date(startDate.value);
+                const end = new Date(endDate.value);
+                const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+                
+                if (days > 0) {
+                    totalPrice.textContent = (days * pricePerDay) + ' ₽';
+                } else {
+                    totalPrice.textContent = '0 ₽';
+                }
+            }
+        }
+
+        startDate.addEventListener('change', calculateTotal);
+        endDate.addEventListener('change', calculateTotal);
+        
+        // Make calculateTotal function global for calendar integration
+        window.calculateTotal = calculateTotal;
+
+        // Handle form submission
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!startDate.value || !endDate.value) {
+                showNotification('Пожалуйста, выберите даты аренды', 'error');
+                return;
+            }
+
+            const start = new Date(startDate.value);
+            const end = new Date(endDate.value);
+            const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            
+            if (days <= 0) {
+                showNotification('Дата окончания должна быть позже даты начала', 'error');
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = bookingForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Обработка...';
+            submitBtn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                showNotification('Бронирование успешно создано!', 'success');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Reset form
+                bookingForm.reset();
+                totalPrice.textContent = '0 ₽';
+            }, 2000);
+        });
+    }
+}
+
+// Date validation
+function initializeDateValidation() {
+    const startDate = document.getElementById('startDate');
+    const endDate = document.getElementById('endDate');
+
+    if (startDate && endDate) {
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        startDate.min = today;
+        endDate.min = today;
+
+        // Update end date minimum when start date changes
+        startDate.addEventListener('change', function() {
+            endDate.min = this.value;
+            if (endDate.value && endDate.value < this.value) {
+                endDate.value = this.value;
+            }
+        });
+    }
+}
+
+// Change main image function (for external calls)
+function changeMainImage(src) {
+    const mainImage = document.getElementById('mainImage');
+    if (mainImage) {
+        mainImage.src = src;
+    }
+}
+
+// Open chat with owner
+function openChat(ownerId) {
+    // Check if user is authenticated
+    const authButtons = document.querySelector('.auth-buttons');
+    if (authButtons.querySelector('.user-menu')) {
+        // User is authenticated, redirect to chat
+        window.location.href = `/chat?user=${ownerId}`;
+    } else {
+        // User is not authenticated, redirect to login
+        window.location.href = '/login/';
+    }
+}
+
+// Show all reviews
+function showAllReviews() {
+    const itemId = getItemIdFromUrl();
+    if (itemId) {
+        window.location.href = `/reviews?item=${itemId}`;
+    }
+}
+
+// Get item ID from URL
+function getItemIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('id');
+}
+
+// Notification system
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => notification.remove());
+
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-message">${message}</span>
+            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        max-width: 400px;
+        animation: slideInRight 0.3s ease;
+    `;
+
+    // Add to page
+    document.body.appendChild(notification);
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+// Add CSS animation for notifications
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
     }
     
-    // Calculate total price
-    const pricePerDay = parseInt(document.querySelector('.daily-price .price').textContent);
-    const days = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24));
-    const totalPrice = pricePerDay * days;
+    .notification-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     
-    // Update total price display
-    document.querySelector('.total-price .price').textContent = `${totalPrice} ₽`;
+    .notification-close {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        margin-left: 10px;
+        padding: 0;
+        font-size: 16px;
+    }
     
-    // Here you would typically send the booking request to the server
-    alert('Бронирование успешно создано!');
-});
+    .notification-close:hover {
+        opacity: 0.8;
+    }
+`;
+document.head.appendChild(style);
 
-// Handle date range changes
-document.querySelectorAll('.date-range input').forEach(input => {
-    input.addEventListener('change', () => {
-        const startDate = document.querySelector('.start-date').value;
-        const endDate = document.querySelector('.end-date').value;
-        
-        if (startDate && endDate) {
-            const pricePerDay = parseInt(document.querySelector('.daily-price .price').textContent);
-            const days = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24));
-            const totalPrice = pricePerDay * days;
-            
-            document.querySelector('.total-price .price').textContent = `${totalPrice} ₽`;
-        }
+// Lazy loading for images
+function initializeLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
     });
-}); 
+
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Initialize lazy loading when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeLazyLoading);
+} else {
+    initializeLazyLoading();
+} 
