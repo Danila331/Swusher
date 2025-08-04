@@ -111,7 +111,7 @@
 
 .date-range {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
     margin-bottom: 1rem;
 }
@@ -490,11 +490,13 @@
     
     .item-right-column {
         position: static;
+        width: 100%;
         order: 2;
     }
     
     .item-left-column {
         order: 1;
+        width: 100%;
     }
     
     /* Mobile Description */
@@ -504,6 +506,7 @@
     
     .mobile-description {
         display: block;
+        width: 100%;
         order: 3;
     }
     

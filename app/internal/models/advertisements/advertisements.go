@@ -78,27 +78,27 @@ func (a *Advertisement) Update(ctx context.Context, pool *pgxpool.Pool) error {
 }
 
 // ReadByID предоставляет объявление по ID из базы данных.
-func (a *Advertisement) ReadByID(ctx context.Context, pool *pgxpool.Pool) (*Advertisement, error) {
+func (a *Advertisement) ReadByID(ctx context.Context, pool *pgxpool.Pool) error {
 	var advertisement Advertisement
 	query := `SELECT user_id, title, description, rental_rules, cost_per_day, cost_per_week, cost_per_month, photo_paths, category, address, geolocation_x, geolocation_y FROM sharehub_advertisements WHERE id = $1;`
 
 	err := pool.QueryRow(ctx, query, a.ID).Scan(&advertisement.UserID,
-		&advertisement.Title,
-		&advertisement.Description,
-		&advertisement.RentalRules,
-		&advertisement.CostPerday,
-		&advertisement.CostPerWeek,
-		&advertisement.CostPerMonth,
-		&advertisement.PhotoPaths,
-		&advertisement.Category,
-		&advertisement.Address,
-		&advertisement.Geolocation_X,
-		&advertisement.Geolocation_Y)
+		&a.Title,
+		&a.Description,
+		&a.RentalRules,
+		&a.CostPerday,
+		&a.CostPerWeek,
+		&a.CostPerMonth,
+		&a.PhotoPaths,
+		&a.Category,
+		&a.Address,
+		&a.Geolocation_X,
+		&a.Geolocation_Y)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return &advertisement, nil
+	return nil
 }
 
 // ReadAll предоставляет все объявления из базы данных с пагинацией.

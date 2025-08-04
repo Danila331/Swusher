@@ -122,7 +122,7 @@ func AdvertisementAddPost(c echo.Context) error {
 }
 
 // AdvertisementDelete handles the deletion of an advertisement.
-func AdvertisementDelete(c echo.Context) error { // надо переделать на Delete
+func AdvertisementDelete(c echo.Context) error {
 	id := c.Param("id")
 
 	advertisement := &advertisements.Advertisement{ID: id}
@@ -138,166 +138,51 @@ func AdvertisementDelete(c echo.Context) error { // надо переделат�
 	return c.JSON(http.StatusOK, map[string]interface{}{"success": true})
 }
 
-// ItemData представляет данные для страницы объявления
-type ItemData struct {
-	Title         string
-	User          *UserData
-	Advertisement *AdvertisementData
-}
-
-// AdvertisementData представляет данные для страницы объявления
-type AdvertisementData struct {
-	ID           int
-	Title        string
-	MainImage    string
-	Images       []string
-	Rating       float64
-	ReviewsCount int
-	Location     string
-	Price        string
-	PricePerDay  string
-	Deposit      int
-	Description  string
-	Specs        []string
-	RentalTerms  []string
-	Owner        OwnerData
-	Reviews      []ReviewData
-}
-
-// OwnerData представляет данные владельца
-type OwnerData struct {
-	ID           string
-	Name         string
-	Avatar       string
-	Rating       float64
-	ReviewsCount int
-	IsVerified   bool
-}
-
-// ReviewData представляет данные отзыва
-type ReviewData struct {
-	ID     string
-	User   UserData
-	Rating float64
-	Text   string
-	Date   string
-}
-
-// UserData представляет данные пользователя
-type UserData struct {
-	Name   string
-	Avatar string
+type AdvertisementPageData struct {
+	User          users.User
+	Advertisement advertisements.Advertisement
 }
 
 // AdvertisementPage handles the request to view a specific advertisement.
 func AdvertisementPage(c echo.Context) error {
-	// id := c.Param("id")
-
-	// advertisement := &advertisements.Advertisement{ID: id}
-	// advertisement, err := advertisement.ReadByID(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
-	// if err != nil {
-	// 	c.Get("logger").(*zap.Logger).Error("failed to get advertisement",
-	// 		zap.String("id", id),
-	// 		zap.Error(err),
-	// 	)
-	// 	return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Ошибка получения объявления"})
-	// }
-
-	// return c.JSON(http.StatusOK, map[string]interface{}{"advertisement": advertisement})
-
+	advertisementId := c.Param("id")
 	userId := c.Get("user_id").(string)
-	user := users.User{ID: userId}
-	err := user.ReadByID(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
+
+	// Получаем информацию об объявлении from the database
+	var advertisement advertisements.Advertisement
+	advertisement.ID = advertisementId
+	err := advertisement.ReadByID(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
+	if err != nil {
+		c.Get("logger").(*zap.Logger).Error("failed to get advertisement",
+			zap.String("id", advertisementId),
+			zap.Error(err),
+		)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Ошибка получения объявления"})
+	}
+
+	var user users.User
+	user.ID = userId
+	err = user.ReadByID(c.Request().Context(), c.Get("pool").(*pgxpool.Pool))
 	if err != nil {
 		c.Get("logger").(*zap.Logger).Error("failed to get user",
-			zap.String("user_id", userId),
+			zap.String("id", userId),
 			zap.Error(err),
 		)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Ошибка получения пользователя"})
 	}
 
-	data := AdvertisementData{
-		Title:     "Камера Sony A7III с объективом 24-70mm f/2.8",
-		MainImage: "/images/items/camera-main.jpg",
-		Images: []string{
-			"/images/items/camera-main.jpg",
-			"/images/items/camera-side.jpg",
-			"/images/items/camera-back.jpg",
-			"/images/items/camera-lens.jpg",
-			"/images/items/camera-case.jpg",
-		},
-		Rating:       4.8,
-		ReviewsCount: 24,
-		Location:     "Москва, Центральный округ",
-		Price:        "1,500 ₽",
-		Deposit:      50000,
-		Description:  "Полнокадровая беззеркальная камера Sony A7III с матрицей 24.2 Мп, системой автофокусировки с 693 точками и 5-осевой стабилизацией изображения. В комплекте идет профессиональный объектив Sony FE 24-70mm f/2.8 GM. Идеально подходит для профессиональной фото- и видеосъемки. Камера в отличном состоянии, используется аккуратно.",
-		Specs: []string{
-			"Матрица: 24.2 Мп, полный кадр",
-			"Стабилизация: 5-осевая",
-			"Автофокус: 693 точки",
-			"Видео: 4K 30p",
-			"Батарея: NP-FZ100",
-			"Объектив: Sony FE 24-70mm f/2.8 GM",
-			"Вес: 650г (с объективом)",
-			"Размеры: 126.9 x 95.6 x 73.7 мм",
-		},
-		RentalTerms: []string{
-			"Минимальный срок аренды: 1 день",
-			"Максимальный срок аренды: 30 дней",
-			"Требуется залог: 50,000 ₽",
-			"Страховка: включена в стоимость",
-			"Доставка: возможна по Москве (+500 ₽)",
-			"Возврат: в день окончания аренды",
-		},
-		Owner: OwnerData{
-			ID:           "owner123",
-			Name:         "Александр Петров",
-			Avatar:       "/images/users/owner-avatar.jpg",
-			Rating:       4.9,
-			ReviewsCount: 156,
-			IsVerified:   true,
-		},
-		Reviews: []ReviewData{
-			{
-				ID: "review1",
-				User: UserData{
-					Name:   "Мария Козлова",
-					Avatar: "/images/users/user1.jpg",
-				},
-				Rating: 5.0,
-				Text:   "Отличная камера, всё работает идеально. Владелец очень ответственный и приятный в общении. Камера была в идеальном состоянии, объектив чистый. Рекомендую!",
-				Date:   "12 марта 2024",
-			},
-			{
-				ID: "review2",
-				User: UserData{
-					Name:   "Дмитрий Соколов",
-					Avatar: "/images/users/user2.jpg",
-				},
-				Rating: 4.5,
-				Text:   "Хорошая камера, качество фото отличное. Владелец пунктуальный, встретил вовремя. Единственный минус - немного тяжелая для длительной съемки.",
-				Date:   "8 марта 2024",
-			},
-			{
-				ID: "review3",
-				User: UserData{
-					Name:   "Анна Иванова",
-					Avatar: "/images/users/user3.jpg",
-				},
-				Rating: 5.0,
-				Text:   "Профессиональная техника в отличном состоянии. Владелец подробно объяснил все настройки. Снимала свадьбу, результат превзошел ожидания!",
-				Date:   "5 марта 2024",
-			},
-		},
+	data := AdvertisementPageData{
+		User:          user,
+		Advertisement: advertisement,
 	}
 
 	err = c.Render(http.StatusOK, "advertisement", data)
 	if err != nil {
 		c.Get("logger").(*zap.Logger).Error("failed to render advertisement page",
+			zap.String("id", advertisementId),
 			zap.Error(err),
 		)
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Ошибка отображения объявления"})
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Ошибка отображения страницы объявления"})
 	}
 
 	return nil

@@ -97,28 +97,30 @@
                         <!-- Item 1 -->
                         {{ range .Advertisements }}
                         <div class="item-card">
-                            <img src="/images/{{ index .PhotoPaths 0 }}" alt="{{ .Title }}">
-                            <div class="item-info">
-                                <h3>{{ .Title }}</h3>
-                                <div class="item-meta">
-                                    <span class="price">{{ .CostPerday }} ₽/день</span>
-                                    <span class="location"><i class="fas fa-map-marker-alt"></i> {{ .Address }}</span>
-                                </div>
-                                <div class="item-details">
-                                    <div class="item-rating">
-                                        <i class="fas fa-star"></i>
-                                        <span>4.8</span>
+                            <a href="/advertisement/{{ .ID }}">
+                                <img src="/images/{{ index .PhotoPaths 0 }}" alt="{{ .Title }}">
+                                <div class="item-info">
+                                        <h3>{{ .Title }}</h3>
+                                        <div class="item-meta">
+                                            <span class="price">{{ .CostPerday }} ₽/день</span>
+                                        <span class="location"><i class="fas fa-map-marker-alt"></i> {{ .Address }}</span>
+                                        </div>
+                                    <div class="item-details">
+                                        <div class="item-rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>4.8</span>
+                                        </div>
+                                        <div class="item-rentals">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>12 аренд</span>
+                                        </div>
                                     </div>
-                                    <div class="item-rentals">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        <span>12 аренд</span>
-                                    </div>
+                                        <div class="item-actions">
+                                            <a href="edit-item.html" class="btn btn-outline">Редактировать</a>
+                                            <button class="btn btn-danger">Удалить</button>
+                                        </div>
                                 </div>
-                                <div class="item-actions">
-                                    <a href="edit-item.html" class="btn btn-outline">Редактировать</a>
-                                    <button class="btn btn-danger">Удалить</button>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                         {{ end }}
                     </div>
@@ -141,7 +143,31 @@
             <p>&copy; 2025 Swusher. Все права защищены.</p>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.btn-danger').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const itemCard = btn.closest('.item-card');
+                    const advertId = itemCard.querySelector('a').getAttribute('href').split('/').pop();
 
+                    if (confirm('Удалить объявление?')) {
+                        fetch(`/advertisement/${advertId}`, {
+                            method: 'DELETE'
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                itemCard.remove();
+                            } else {
+                                alert('Ошибка при удалении');
+                            }
+                        })
+                        .catch(() => alert('Ошибка сети'));
+                    }
+                });
+            });
+        });
+    </script>
     <script src="/js/profile.js"></script>
 </body>
 </html>

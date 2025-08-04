@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ .Title }} - Swusher</title>
+    <title>{{ .Advertisement.Title }} - Swusher</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/pages.css">
     <link rel="stylesheet" href="/css/advertisement.css">
@@ -62,16 +62,16 @@
                         <!-- Gallery Section -->
                         <div class="item-gallery">
                             <div class="main-image">
-                                <img id="mainImage" src="{{ .MainImage }}" alt="{{ .Title }}">
+                                <img id="mainImage" src="/images/{{ index .Advertisement.PhotoPaths 0 }}" alt="{{ .Advertisement.Title }}">
                                 <div class="image-overlay">
-                                    <button class="zoom-btn" onclick="openImageModal('{{ .MainImage }}')">
+                                    <button class="zoom-btn" onclick="openImageModal(document.getElementById('mainImage').src)">
                                         <i class="fas fa-search-plus"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="thumbnail-grid">
-                                {{ range .Images }}
-                                <img src="{{ . }}" alt="{{ $.Title }}" class="thumbnail" onclick="changeMainImage('{{ . }}')">
+                                {{ range .Advertisement.PhotoPaths }}
+                                <img src="/images/{{ . }}" alt="/images/{{ . }}" class="thumbnail" onclick="changeMainImage('/images/{{ . }}')">
                                 {{ end }}
                             </div>
                         </div>
@@ -79,21 +79,17 @@
                         <!-- Item Description (Desktop) -->
                         <div class="item-description desktop-description">
                             <h2>Описание</h2>
-                            <p>{{ .Description }}</p>
-                            
+                            <p>{{ .Advertisement.Description }}</p>
+
                             <h3>Характеристики</h3>
                             <ul class="specs-list">
-                                {{ range .Specs }}
-                                <li>{{ . }}</li>
-                                {{ end }}
+                                
                             </ul>
 
                             <h3>Условия аренды</h3>
-                            <ul class="rental-terms">
-                                {{ range .RentalTerms }}
-                                <li>{{ . }}</li>
-                                {{ end }}
-                            </ul>
+                            <p>
+                                {{ .Advertisement.RentalRules }}
+                            </p>
                         </div>
                     </div>
 
@@ -101,28 +97,28 @@
                     <div class="item-right-column">
                         <!-- Item Info Section -->
                         <div class="item-info">
-                            <h1>{{ .Title }}</h1>
+                            <h1>{{ .Advertisement.Title }}</h1>
                             <div class="item-meta">
                                 <div class="rating">
                                     <i class="fas fa-star"></i>
-                                    <span>{{ .Rating }}</span>
-                                    <span class="reviews-count">({{ .ReviewsCount }} отзывов)</span>
+                                    <span>0</span>
+                                    <span class="reviews-count">(10 отзывов)</span>
                                 </div>
                                 <div class="location">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ .Location }}</span>
+                                    <span>{{ .Advertisement.Address }}</span>
                                 </div>
                             </div>
 
                             <!-- Price Section -->
                             <div class="price-section">
                                 <div class="daily-price">
-                                    <span class="price">{{ .Price }}</span>
+                                    <span class="price">{{ .Advertisement.CostPerday }}</span>
                                     <span class="period">в день</span>
                                 </div>
                                 <div class="deposit">
                                     <i class="fas fa-shield-alt"></i>
-                                    <span>Залог: {{ .Deposit }}</span>
+                                    <span>Залог: 10000</span>
                                 </div>
                             </div>
 
@@ -176,17 +172,17 @@
                                 <h2>О владельце</h2>
                                 <div class="owner-card">
                                     <div class="owner-avatar">
-                                        <img src="{{ .Owner.Avatar }}" alt="{{ .Owner.Name }}">
+                                        <img src="/images/{{ .User.PhotoPath }}" alt="{{ .User.Name }}">
                                     </div>
                                     <div class="owner-details">
-                                        <h3>{{ .Owner.Name }}</h3>
+                                        <h3>{{ .User.Name }}</h3>
                                         <div class="owner-rating">
                                             <i class="fas fa-star"></i>
-                                            <span>{{ .Owner.Rating }}</span>
-                                            <span class="reviews-count">({{ .Owner.ReviewsCount }} отзывов)</span>
+                                            <span>9</span>
+                                            <span class="reviews-count">(10 отзывов)</span>
                                         </div>
                                         <div class="owner-verification">
-                                            {{ if .Owner.IsVerified }}
+                                            {{ if .User.IsVerified }}
                                             <i class="fas fa-check-circle"></i>
                                             <span>Подтвержденный аккаунт</span>
                                             {{ else }}
@@ -195,7 +191,7 @@
                                             {{ end }}
                                         </div>
                                     </div>
-                                    <button class="btn btn-outline" onclick="openChat('{{ .Owner.ID }}')">
+                                    <button class="btn btn-outline" onclick="openChat('{{ .User.ID }}')">
                                         <i class="fas fa-comments"></i>
                                         Написать сообщение
                                     </button>
@@ -207,21 +203,17 @@
                     <!-- Mobile: Item Description (показывается только на мобильных) -->
                     <div class="item-description mobile-description">
                         <h2>Описание</h2>
-                        <p>{{ .Description }}</p>
-                        
+                        <p>{{ .Advertisement.Description }}</p>
+
                         <h3>Характеристики</h3>
                         <ul class="specs-list">
-                            {{ range .Specs }}
-                            <li>{{ . }}</li>
-                            {{ end }}
+                            
                         </ul>
 
                         <h3>Условия аренды</h3>
-                        <ul class="rental-terms">
-                            {{ range .RentalTerms }}
-                            <li>{{ . }}</li>
-                            {{ end }}
-                        </ul>
+                        <p>
+                            {{ .Advertisement.RentalRules }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -229,17 +221,17 @@
             <!-- Reviews Section -->
             <div class="reviews-section">
                 <div class="reviews-header">
-                    <h2>Отзывы ({{ .ReviewsCount }})</h2>
+                    <h2>Отзывы 10</h2>
                     <button class="btn btn-outline" onclick="showAllReviews()">
                         Посмотреть все отзывы
                     </button>
                 </div>
                 <div class="reviews-list">
-                    {{ range .Reviews }}
+                    <!-- тут отзывы -->
                     <div class="review-card">
                         <div class="reviewer-info">
                             <div class="reviewer-avatar">
-                                <img src="{{ .User.Avatar }}" alt="{{ .User.Name }}">
+                                <img src="{{ .User.PhotoPath }}" alt="{{ .User.Name }}">
                             </div>
                             <div class="reviewer-details">
                                 <h4>{{ .User.Name }}</h4>
@@ -248,13 +240,12 @@
                             </div>
                         </div>
                         <div class="review-text">
-                            <p>{{ .Text }}</p>
+                            <p>{{ .Advertisement.Description }}</p>
                         </div>
                         <div class="review-date">
-                            <span>{{ .Date }}</span>
+                            <span>1221</span>
                         </div>
                     </div>
-                    {{ end }}
                 </div>
             </div>
         </div>
@@ -329,8 +320,14 @@
         });
 
         // Image modal functionality
+        // <!-- VS Code может подсвечивать, но это валидный Go-шаблон -->
         let currentImageIndex = 0;
-        const images = ['{{ .MainImage }}'];
+        const images = [
+        
+        {{- range $i, $img := .Advertisement.PhotoPaths -}}
+        "/images/{{ $img }}",
+        {{- end -}}
+    ];
 
         function openImageModal(src) {
             const modal = document.getElementById('imageModal');

@@ -2850,6 +2850,11 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+.item-info a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
 .item-info h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -3289,6 +3294,8 @@
     font-weight: bold;
     cursor: pointer;
     z-index: 10001;
+    background-color: transparent;
+    border: 0px;
 }
 
 .close-modal:hover {
