@@ -123,6 +123,16 @@
                             </div>
 
                             <!-- Availability Calendar -->
+                            {{ if .IsOwner }}
+                            <div class="availability">
+                                <a href="/advertisement/edit/{{ .Advertisement.ID }}" class="btn btn-large">
+                                    Изменить
+                                </a>
+                                <button class="btn btn-primary btn-large">
+                                    Удалить
+                                </button>
+                            </div>
+                            {{ else }}
                             <div class="availability">
                                 <h3>Доступность</h3>
                                 <div class="calendar-container">
@@ -166,7 +176,7 @@
                                     Забронировать
                                 </button>
                             </form>
-
+                            {{ end }}
                             <!-- Owner Info -->
                             <div class="owner-info">
                                 <h2>О владельце</h2>
@@ -231,7 +241,7 @@
                     <div class="review-card">
                         <div class="reviewer-info">
                             <div class="reviewer-avatar">
-                                <img src="{{ .User.PhotoPath }}" alt="{{ .User.Name }}">
+                                <img src="/images/{{ .User.PhotoPath }}" alt="{{ .User.Name }}">
                             </div>
                             <div class="reviewer-details">
                                 <h4>{{ .User.Name }}</h4>
@@ -291,7 +301,28 @@
             const dateRange = document.getElementById('dateRange');
             const startDate = document.getElementById('startDate');
             const endDate = document.getElementById('endDate');
+            document.querySelectorAll('.btn-large.btn-primary').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Получаем id объявления из адреса страницы
+                const pathParts = window.location.pathname.split('/');
+                const advertId = pathParts[pathParts.length - 1];
 
+                if (confirm('Удалить объявление?')) {
+                    fetch(`/advertisement/${advertId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = '/profile-saler/items';
+                        } else {
+                            alert('Ошибка при удалении');
+                        }
+                    })
+                    .catch(() => alert('Ошибка сети'));
+                }
+            });
+        });
             if (dateRange) {
                 const fp = flatpickr(dateRange, {
                     mode: "range",

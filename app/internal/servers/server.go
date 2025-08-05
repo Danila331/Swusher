@@ -84,6 +84,8 @@ func StartServer(logger *zap.Logger, pool *pgxpool.Pool) {
 	advertisement.DELETE("/:id", handlers.AdvertisementDelete, midlewary.JWTMiddleware)
 	advertisement.GET("/add", handlers.AdvertisementAddPage, midlewary.JWTMiddleware)
 	advertisement.POST("/add", handlers.AdvertisementAddPost, midlewary.JWTMiddleware)
+	advertisement.GET("/edit/:id", handlers.AdvertisementEditPage, midlewary.JWTMiddleware)
+	advertisement.POST("/edit/:id", handlers.AdvertisementEditPost, midlewary.JWTMiddleware)
 
 	// Запуск сервера на хосте
 	app.Logger.Fatal(app.Start(":8081"))

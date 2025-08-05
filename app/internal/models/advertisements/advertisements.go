@@ -58,9 +58,8 @@ func (a *Advertisement) Create(ctx context.Context, pool *pgxpool.Pool) error {
 func (a *Advertisement) Update(ctx context.Context, pool *pgxpool.Pool) error {
 	// Implement the logic to update an existing advertisement in the database
 
-	query := `UPDATE sharehub_advertisements SET user_id = $1, title = $2, description = $3, rental_rules = $4, cost_per_day = $5, cost_per_week = $6, cost_per_month = $7, photo_paths = $8, category = $9, address = $10, geolocation_x = $11, geolocation_y = $12 WHERE id = $13;`
-
-	_, err := pool.Exec(ctx, query, a.UserID, a.Title, a.Description, a.RentalRules,
+	query := `UPDATE sharehub_advertisements SET title = $1, description = $2, rental_rules = $3, cost_per_day = $4, cost_per_week = $5, cost_per_month = $6, photo_paths = $7, category = $8, address = $9, geolocation_x = $10, geolocation_y = $11 WHERE id = $12;`
+	_, err := pool.Exec(ctx, query, a.Title, a.Description, a.RentalRules,
 		a.CostPerday,
 		a.CostPerWeek,
 		a.CostPerMonth,
@@ -79,10 +78,9 @@ func (a *Advertisement) Update(ctx context.Context, pool *pgxpool.Pool) error {
 
 // ReadByID предоставляет объявление по ID из базы данных.
 func (a *Advertisement) ReadByID(ctx context.Context, pool *pgxpool.Pool) error {
-	var advertisement Advertisement
 	query := `SELECT user_id, title, description, rental_rules, cost_per_day, cost_per_week, cost_per_month, photo_paths, category, address, geolocation_x, geolocation_y FROM sharehub_advertisements WHERE id = $1;`
 
-	err := pool.QueryRow(ctx, query, a.ID).Scan(&advertisement.UserID,
+	err := pool.QueryRow(ctx, query, a.ID).Scan(&a.UserID,
 		&a.Title,
 		&a.Description,
 		&a.RentalRules,
