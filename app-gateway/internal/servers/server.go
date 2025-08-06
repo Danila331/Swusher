@@ -27,6 +27,9 @@ func StartServer(logger *zap.Logger, pool *pgxpool.Pool) {
 	// Создаем новый Echo сервер
 	app := echo.New()
 
+	// Устанавливаем метрики
+	app.Use(midlewary.MetricsMiddleware())
+
 	// Включаем статические файлы
 	app.Static("/", "./internal/static")
 

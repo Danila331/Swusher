@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Danila331/Swusher/internal/metrics"
 	"github.com/Danila331/Swusher/internal/servers"
 	"github.com/Danila331/Swusher/pkg/store"
 	"github.com/joho/godotenv"
@@ -58,7 +57,7 @@ func main() {
 	}
 
 	// Настройка сервера метрик
-	metrics.SetupMetricsServer()
+	servers.SetupMetricsServer()
 
 	// Запуск бекенд сервера
 	servers.StartServer(logger, pool)
