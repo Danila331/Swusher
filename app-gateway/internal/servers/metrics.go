@@ -7,6 +7,8 @@ import (
 )
 
 func SetupMetricsServer() {
-	http.Handle("/metrics", promhttp.Handler())
-	go http.ListenAndServe(":2112", nil) // порт по умолчанию для метрик
+	go func() {
+		http.Handle("/metrics", promhttp.Handler())
+		http.ListenAndServe(":2112", nil)
+	}()
 }
