@@ -1,0 +1,279 @@
+openapi: 3.0.3
+info:
+  title: Swusher API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081
+paths:
+  /:
+    get:
+      summary: Главная страница
+      tags: [Pages]
+      responses:
+        '200':
+          description: OK
+
+  /about:
+    get:
+      summary: О нас
+      tags: [Pages]
+      responses:
+        '200':
+          description: OK
+
+  /contacts:
+    get:
+      summary: Контакты
+      tags: [Pages]
+      responses:
+        '200':
+          description: OK
+
+  /how-it-works:
+    get:
+      summary: Как это работает
+      tags: [Pages]
+      responses:
+        '200':
+          description: OK
+
+  /catalog:
+    get:
+      summary: Каталог вещей
+      tags: [Catalog]
+      responses:
+        '200':
+          description: OK
+
+  /register:
+    get:
+      summary: Страница регистрации
+      tags: [Auth]
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Регистрация пользователя
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                lastName: { type: string }
+                email: { type: string }
+                phone: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: OK
+
+  /register/yandex:
+    post:
+      summary: Регистрация через Яндекс
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                access_token: { type: string }
+      responses:
+        '200':
+          description: OK
+
+  /login:
+    get:
+      summary: Страница входа
+      tags: [Auth]
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Вход пользователя
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: OK
+
+  /login/yandex:
+    post:
+      summary: Вход через Яндекс
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                access_token: { type: string }
+      responses:
+        '200':
+          description: OK
+
+  /login/google:
+    post:
+      summary: Вход через Google
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                credential: { type: string }
+      responses:
+        '200':
+          description: OK
+
+  /profile-saler:
+    get:
+      summary: Профиль продавца
+      tags: [Profile]
+      responses:
+        '200':
+          description: OK
+
+  /profile-saler/items:
+    get:
+      summary: Вещи продавца
+      tags: [Profile]
+      responses:
+        '200':
+          description: OK
+
+  /profile-saler/rental-history:
+    get:
+      summary: История аренд продавца
+      tags: [Profile]
+      responses:
+        '200':
+          description: OK
+
+  /profile-saler/reviews:
+    get:
+      summary: Отзывы продавца
+      tags: [Profile]
+      responses:
+        '200':
+          description: OK
+
+  /profile-saler/earnings:
+    get:
+      summary: Доходы продавца
+      tags: [Profile]
+      responses:
+        '200':
+          description: OK
+
+  /profile-saler/settings:
+    get:
+      summary: Настройки продавца
+      tags: [Profile]
+      responses:
+        '200':
+          description: OK
+
+  /advertisement/{id}:
+    get:
+      summary: Получить объявление
+      tags: [Advertisement]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Удалить объявление
+      tags: [Advertisement]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+
+  /advertisement/add:
+    get:
+      summary: Страница добавления объявления
+      tags: [Advertisement]
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Добавить объявление
+      tags: [Advertisement]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string }
+                description: { type: string }
+                price: { type: number }
+                deposit: { type: number }
+                category: { type: string }
+                photos: { type: array, items: { type: string } }
+      responses:
+        '200':
+          description: OK
+
+  /advertisement/edit/{id}:
+    get:
+      summary: Страница редактирования объявления
+      tags: [Advertisement]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Редактировать объявление
+      tags: [Advertisement]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string }
+                description: { type: string }
+                price: { type: number }
+                deposit: { type: number }
+                category: { type: string }
+                photos: { type: array, items: { type: string } }
+      responses:
+        '200':
+          description: OK

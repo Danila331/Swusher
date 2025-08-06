@@ -1,0 +1,174 @@
+{{ define "my-items"}}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои вещи - Swusher</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="/">Swusher</a>
+            </div>
+            <div class="nav-links">
+                <a href="/catalog">Каталог</a>
+                <a href="/how-it-works">Как это работает</a>
+                <a href="/about" class="active">О нас</a>
+                <a href="/contacts">Контакты</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="/profile-saler/" class="btn btn-outline">Мой профиль</a>
+                <a href="/logout/" class="btn btn-primary">Выйти</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+        </nav>
+        <div class="mobile-nav" id="mobileNav">
+            <div class="mobile-nav-content">
+                <div class="mobile-nav-links">
+                    <a href="/catalog">Каталог</a>
+                    <a href="/how-it-works">Как это работает</a>
+                    <a href="/about">О нас</a>
+                    <a href="/contacts">Контакты</a>
+                </div>
+                <div class="mobile-auth-buttons">
+                    <a href="/profile-saler/" class="btn btn-outline mobile-btn">Мой профиль</a>
+                    <a href="/logout/" class="btn btn-primary mobile-btn">Выйти</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="profile-section">
+        <div class="container">
+            <div class="profile-grid">
+                <!-- Sidebar -->
+                <aside class="profile-sidebar">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Аватар владельца">
+                            <button class="avatar-edit">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <h2>{{ .ProfileSaler.Name }} {{ .ProfileSaler.Surname }}</h2>
+                        <p class="user-email">{{ .Email }}</p>
+                        <div class="user-rating">
+                            <i class="fas fa-star"></i>
+                            <span>{{ .ProfileSaler.Rating }}</span>
+                            <span class="reviews-count">({{ .ProfileSaler.ReviewsCount }} отзыва)</span>
+                        </div>
+                        <div class="user-verification">
+                            <i class="fas fa-check-circle"></i>
+                            <span>{{ if .ProfileSaler.IsVerified }}Верифицирован аккаунт{{ else }}Не верифицирован аккаунт{{ end }}</span>
+                        </div>
+                    </div>
+                    <nav class="profile-nav">
+                        <a href="/profile-saler/"><i class="fas fa-clock"></i> Активные аренды</a>
+                        <a href="/profile-saler/items" class="active"><i class="fas fa-box"></i> Мои вещи</a>
+                        <a href="/profile-saler/rental-history"><i class="fas fa-history"></i> История аренд</a>
+                        <a href="/profile-saler/reviews"><i class="fas fa-star"></i> Отзывы</a>
+                        <a href="/profile-saler/earnings"><i class="fas fa-wallet"></i> Заработок</a>
+                        <a href="/profile-saler/settings"><i class="fas fa-cog"></i> Настройки</a>
+                    </nav>
+                </aside>
+
+                <!-- Content -->
+                <div class="profile-content">
+                    <div class="section-title">
+                        <h2>Мои вещи</h2>
+                    </div>
+                    <div class="section-header">
+                        <a href="/advertisement/add" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Добавить вещь
+                        </a>
+                    </div>
+                    <div class="history-grid">
+                        <!-- Item 1 -->
+                        {{ range .Advertisements }}
+                        <div class="item-card">
+                            <a href="/advertisement/{{ .ID }}">
+                                <img src="/images/{{ index .PhotoPaths 0 }}" alt="{{ .Title }}">
+                                <div class="item-info">
+                                        <h3>{{ .Title }}</h3>
+                                        <div class="item-meta">
+                                            <span class="price">{{ .CostPerday }} ₽/день</span>
+                                        <span class="location"><i class="fas fa-map-marker-alt"></i> {{ .Address }}</span>
+                                        </div>
+                                    <div class="item-details">
+                                        <div class="item-rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>4.8</span>
+                                        </div>
+                                        <div class="item-rentals">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>12 аренд</span>
+                                        </div>
+                                    </div>
+                                        <div class="item-actions">
+                                            <a href="/advertisement/edit/{{ .ID }}" class="btn btn-outline">Редактировать</a>
+                                            <button class="btn btn-danger">Удалить</button>
+                                        </div>
+                                </div>
+                            </a>
+                        </div>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer stylish-footer">
+        <div class="footer-inner">
+            <a href="/" class="footer-logo">Swusher</a>
+            <div class="footer-socials">
+                <a href="#" class="footer-social vk"><i class="fab fa-vk"></i></a>
+                <a href="#" class="footer-social tg"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="footer-social ig"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom stylish-footer-bottom">
+            <p>&copy; 2025 Swusher. Все права защищены.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.btn-danger').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const itemCard = btn.closest('.item-card');
+                    const advertId = itemCard.querySelector('a').getAttribute('href').split('/').pop();
+
+                    if (confirm('Удалить объявление?')) {
+                        fetch(`/advertisement/${advertId}`, {
+                            method: 'DELETE'
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                itemCard.remove();
+                            } else {
+                                alert('Ошибка при удалении');
+                            }
+                        })
+                        .catch(() => alert('Ошибка сети'));
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="/js/profile.js"></script>
+</body>
+</html>
+{{ end }}
