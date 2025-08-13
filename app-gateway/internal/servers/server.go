@@ -6,8 +6,10 @@ import (
 
 	"github.com/Danila331/Swusher/internal/handlers"
 	"github.com/Danila331/Swusher/internal/midlewary"
+	notificationpb "github.com/Danila331/Swusher/notification-server/internal/pb/notification"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/labstack/echo/v4"
+	"google.golang.org/grpc"
 
 	"go.uber.org/zap"
 )
@@ -37,6 +39,23 @@ func StartServer(logger *zap.Logger, pool *pgxpool.Pool) {
 	renderer := &TemplateRenderer{
 		Templates: template.Must(template.ParseGlob("./internal/templates/*.html")),
 	}
+
+	// Создаем gRPC-клиент для сервиса нотификаций
+	notifConn, err := grpc.Dial("notification:50051", grpc.WithInsecure())
+	if err != nil {
+		logger.Fatal("failed to connect to notification service", zap.Error(err))
+	}
+	notifClient := notificationpb.NewNotificationServiceClient(notifConn)
+
+	// Передаем клиента в Echo через context
+	app.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			c.Set("pool", pool)
+			c.Set("logger", logger)
+			c.Set("notifClient", notifClient) // <-- добавили
+			return next(c)
+		}
+	})
 
 	app.Renderer = renderer
 	// Устанавливаем обработчик для шаблонов

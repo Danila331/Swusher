@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package notification;
+
+option go_package = "services/notification/internal/pb/notification;notification";
+
+service NotificationService {
+    rpc SendNotification(SendNotificationRequest) returns (SendNotificationResponse);
+    rpc GetUniqueCode(GetUniqueCodeRequest) returns (GetUniqueCodeResponse);
+}
+
+message SendNotificationRequest {
+    string user_id = 1;
+    string message = 2;
+}
+
+message SendNotificationResponse {
+    bool success = 1;
+    string error = 2;
+}
+
+message GetUniqueCodeRequest {
+    string user_id = 1;
+}
+
+message GetUniqueCodeResponse {
+    string unique_code = 1;
+    bool success = 2;
+    string error = 3;
+}

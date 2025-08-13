@@ -56,8 +56,8 @@ func main() {
 		logger.Fatal("failed to create tables", zap.Error(err))
 	}
 
-	// Настройка сервера метрик
-	servers.SetupMetricsServer()
+	// // Настройка сервера метрик
+	// servers.SetupMetricsServer()
 
 	// Запуск бекенд сервера
 	servers.StartServer(logger, pool)
