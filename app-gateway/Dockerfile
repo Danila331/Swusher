@@ -1,9 +1,10 @@
-# filepath: c:\Users\danil\OneDrive\Рабочий стол\ShareHub\back-end\Dockerfile
 FROM golang:1.23
 
 WORKDIR /app
 
-COPY . .
+COPY . . 
+
+WORKDIR /app/app-gateway
 
 RUN go mod tidy
 

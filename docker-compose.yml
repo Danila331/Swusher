@@ -3,10 +3,21 @@ version: '3.8'
 services:
   app-gateway:
     build:
-      context: ./app-gateway
+      context: .         # <-- корень проекта!
+      dockerfile: app-gateway/Dockerfile
     ports:
       - "8080:8080"
       - "2112:2112"
+    networks:
+      - monitoring
+    depends_on:
+      - notification
+
+  notification:
+    build:
+      context: ./services/notification
+    ports:
+      - "50051:50051"
     networks:
       - monitoring
 

@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/Danila331/Swusher/internal/models/users"
+	notificationpb "github.com/Danila331/Swusher/notification-server/pkg/pb/notification/proto"
 	"github.com/Danila331/Swusher/pkg/hash"
 	"github.com/Danila331/Swusher/pkg/jwt"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -70,6 +71,15 @@ func LoginPost(c echo.Context) error {
 	cookie.Secure = false // true для https
 	cookie.SameSite = http.SameSiteLaxMode
 	c.SetCookie(cookie)
+
+	c.Get("notifClient").(notificationpb.NotificationServiceClient).SendNotification(c.Request().Context(), &notificationpb.SendNotificationRequest{
+		UserId:  user.ID,
+		Message: "Вы успешно вошли в систему",
+	})
+
+	c.Get("notifClient").(notificationpb.NotificationServiceClient).GetUniqueCode(c.Request().Context(), &notificationpb.GetUniqueCodeRequest{
+		UserId: user.ID,
+	})
 
 	return c.JSON(http.StatusOK, map[string]string{
 		"message": "Login successful",

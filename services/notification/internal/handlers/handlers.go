@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	notification "github.com/Danila331/Swusher/notification-server/internal/pb/notification/proto"
+	notification "github.com/Danila331/Swusher/notification-server/pkg/pb/notification/proto"
 )
 
 type NotificationServiceServerImpl struct {

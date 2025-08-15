@@ -5,7 +5,7 @@ import (
 	"net"
 
 	"github.com/Danila331/Swusher/notification-server/internal/handlers"
-	notification "github.com/Danila331/Swusher/notification-server/internal/pb/notification/proto"
+	notification "github.com/Danila331/Swusher/notification-server/pkg/pb/notification/proto"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
